@@ -5,208 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diyor Stroy</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #fff;
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #111; margin:0; line-height:1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { position: sticky; top: 0; background: #fff; display:flex; justify-content:space-between; align-items:center; padding:20px 40px; z-index:1000;}
+        header img { height:70px; }
+        nav a { margin-left:25px; text-decoration:none; color:#111; font-weight:500; font-size:1.1rem;}
+        nav a:hover { color:#555; }
+        .hero { margin:30px auto; border-radius:20px; overflow:hidden; height:70vh;}
+        .hero img { width:100%; height:100%; object-fit:cover; border-radius:20px;}
+        .info { text-align:center; padding:80px 20px;}
+        .info h2 { font-size:2.2rem; margin-bottom:20px;}
+        .info p { max-width:800px; margin:0 auto; font-size:1.1rem; color:#444;}
+        .contact { padding:80px 20px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+        .contact h2 { margin-bottom:20px;}
+        .contact form { display:flex; flex-direction:column;}
+        .contact input, .contact textarea { margin-bottom:15px; padding:12px; border:1px solid #ddd; border-radius:10px; font-size:1rem;}
+        .contact button { padding:12px; border:none; background:#111; color:#fff; font-size:1rem; border-radius:10px; cursor:pointer;}
+        .contact button:hover { background:#333;}
+        .contact-info { font-size:1.1rem;}
+        .contact-info p { margin-bottom:10px;}
+        .contact-info a { color:#111; text-decoration:none; font-weight:500;}
+        .contact-info a:hover { color:#555;}
+        footer { text-align:center; padding:20px; border-top:1px solid #eee; font-size:0.9rem; color:#777;}
+
+        /* Swiper custom */
+        .swiper { width:100%; max-width:1100px; margin:0 auto; padding:30px 0; position:relative; }
+        .swiper-slide img { width:100%; height:380px; object-fit:cover; border-radius:15px; }
+
+        /* Arrow styles: tashqarida, fonisiz */
+        .swiper-button-prev, .swiper-button-next {
             color: #111;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navbar */
-        header {
-            position: sticky;
-            top: 0;
-            background: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            z-index: 1000;
-            border-bottom: 1px solid #eee;
-        }
-        header img {
-            height: 55px;
-        }
-        nav a {
-            margin-left: 25px;
-            text-decoration: none;
-            color: #111;
-            font-weight: 500;
-        }
-        nav a:hover {
-            color: #555;
-        }
-
-        /* Hero */
-        .hero {
-            margin: 30px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            height: 70vh;
-        }
-        .hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            text-align: center;
-        }
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .hero-text p {
-            font-size: 1.2rem;
-        }
-
-        /* Info */
-        .info {
-            text-align: center;
-            padding: 80px 20px;
-        }
-        .info h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-        .info p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            color: #444;
-        }
-
-        /* Gallery */
-        .gallery {
-            padding: 60px 0;
-            text-align: center;
-        }
-        .gallery h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-        .carousel {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel img {
-            width: calc(100% / 3);
-            object-fit: cover;
-            border-radius: 15px;
-            padding: 5px;
-        }
-        .arrow {
-            position: absolute;
+            background: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
-            background: transparent;
-            border: none;
-            font-size: 2rem;
-            color: #fff;
-            cursor: pointer;
-            z-index: 100;
+            box-shadow: none;
         }
-        .arrow.left { left: 10px; }
-        .arrow.right { right: 10px; }
-        .dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .dot {
-            height: 12px;
-            width: 12px;
-            margin: 0 5px;
-            background: #ccc;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-        }
-        .dot.active { background: #111; }
+        .swiper-button-prev { left: -70px; }
+        .swiper-button-next { right: -70px; }
+        .swiper-button-prev:hover, .swiper-button-next:hover { color:#555; }
 
-        /* Contact */
-        .contact {
-            padding: 80px 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-        .contact h2 {
-            margin-bottom: 20px;
-        }
-        .contact form {
-            display: flex;
-            flex-direction: column;
-        }
-        .contact input, .contact textarea {
-            margin-bottom: 15px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
-        .contact button {
-            padding: 12px;
-            border: none;
-            background: #111;
-            color: #fff;
-            font-size: 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .contact button:hover { background: #333; }
-        .contact-info {
-            font-size: 1.1rem;
-        }
-        .contact-info p { margin-bottom: 10px; }
-        .contact-info a {
-            color: #111;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .contact-info a:hover { color: #555; }
+        .swiper-pagination-bullet { background:#ccc; }
+        .swiper-pagination-bullet-active { background:#111; }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            border-top: 1px solid #eee;
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2rem; }
-            .hero-text p { font-size: 1rem; }
-            .carousel img { width: 100%; }
-            .contact { grid-template-columns: 1fr; }
-        }
+        @media(max-width:1024px){ .swiper-slide img{height:300px;} .swiper-button-prev, .swiper-button-next { left:-50px; right:-50px; } }
+        @media(max-width:768px){ .swiper-slide img{height:220px;} .contact{grid-template-columns:1fr;} .swiper-button-prev, .swiper-button-next { left:-40px; right:-40px; } }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <header class="container">
-    <img src="images/logo.jpg" alt="Diyor Stroy logo">
+    <img src="images/logo.png" alt="Diyor Stroy logo">
     <nav>
         <a href="#hero">Bosh sahifa</a>
         <a href="#info">Biz haqimizda</a>
@@ -215,46 +69,38 @@
     </nav>
 </header>
 
-<!-- Hero -->
 <section class="hero container" id="hero">
     <img src="images/street.jpg" alt="Diyor Stroy Street">
-    <div class="hero-text">
-        <h1>Diyor Stroy</h1>
-        <p>Samarqanddagi ishonchli qurilish mollari do‘koni</p>
-    </div>
 </section>
 
-<!-- Info -->
 <section class="info container" id="info">
     <h2>Biz haqimizda</h2>
-    <p>
-        "Diyor Stroy" — Samarqand shahridagi qurilish mollari do‘koni. Bizda sifatli mahsulotlar, keng tanlov va ishonchli xizmat mavjud.
-        Har bir mijozimiz uchun qulay narx va xizmat ko‘rsatishga intilamiz. Qurilish va ta’mir jarayonlaringizni osonlashtirish uchun doim yoningizdamiz.
-    </p>
+    <p>"Diyor Stroy" — Samarqand shahridagi qurilish mollari do‘koni. Bizda sifatli mahsulotlar, keng tanlov va ishonchli xizmat mavjud. Har bir mijozimiz uchun qulay narx va xizmat ko‘rsatishga intilamiz. Qurilish va ta’mir jarayonlaringizni osonlashtirish uchun doim yoningizdamiz.</p>
 </section>
 
-<!-- Gallery -->
 <section class="gallery container" id="gallery">
     <h2>Galereya</h2>
-    <div class="carousel">
-        <div class="carousel-track">
-            <img src="images/photo1.jpg" alt="">
-            <img src="images/photo2.jpg" alt="">
-            <img src="images/photo3.jpg" alt="">
-            <img src="images/photo4.jpg" alt="">
-            <img src="images/photo5.jpg" alt="">
-            <img src="images/photo6.jpg" alt="">
-            <img src="images/photo7.jpg" alt="">
-            <img src="images/photo8.jpg" alt="">
-            <img src="images/photo9.jpg" alt="">
+    <!-- Swiper -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/photo1.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo2.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo3.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo4.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo5.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo6.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo7.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo8.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/photo9.jpg" alt=""></div>
         </div>
-        <button class="arrow left">&#10094;</button>
-        <button class="arrow right">&#10095;</button>
+        <!-- Arrows -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
     </div>
-    <div class="dots"></div>
 </section>
 
-<!-- Contact -->
 <section class="contact container" id="contact">
     <div>
         <h2>Aloqa</h2>
@@ -273,59 +119,24 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer>
-    &copy; 2025 Diyor Stroy. Barcha huquqlar himoyalangan.
-</footer>
+<footer>&copy; 2025 Diyor Stroy. Barcha huquqlar himoyalangan.</footer>
 
-<!-- JavaScript for Carousel -->
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.arrow.right');
-    const prevButton = document.querySelector('.arrow.left');
-    const dotsNav = document.querySelector('.dots');
-    let index = 0;
-    const slideWidth = slides[0].getBoundingClientRect().width;
-
-    // Clone first slides for infinite loop
-    track.style.width = slideWidth * slides.length + "px";
-
-    // Create dots
-    const totalGroups = Math.ceil(slides.length / 3);
-    for (let i = 0; i < totalGroups; i++) {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (i === 0) dot.classList.add('active');
-        dotsNav.appendChild(dot);
-        dot.addEventListener('click', () => {
-            index = i;
-            moveCarousel();
-        });
-    }
-    const dots = Array.from(dotsNav.children);
-
-    function moveCarousel() {
-        track.style.transform = 'translateX(' + (-index * slideWidth * 3) + 'px)';
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[index].classList.add('active');
-    }
-
-    nextButton.addEventListener('click', () => {
-        index = (index + 1) % totalGroups;
-        moveCarousel();
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 4000 },
+        pagination: { el: '.swiper-pagination', clickable:true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+            0: { slidesPerView:1 },
+            768: { slidesPerView:2 },
+            1024: { slidesPerView:3 }
+        }
     });
-
-    prevButton.addEventListener('click', () => {
-        index = (index - 1 + totalGroups) % totalGroups;
-        moveCarousel();
-    });
-
-    // Auto slide
-    setInterval(() => {
-        index = (index + 1) % totalGroups;
-        moveCarousel();
-    }, 4000);
 </script>
 </body>
 </html>
