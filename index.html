@@ -264,6 +264,7 @@
             background: #ffffff;
             max-width: 1200px;
             margin: 0 auto;
+            align-items: center;
         }
         .contact h2 {
             margin-bottom:35px;
@@ -286,7 +287,7 @@
         .contact form {
             display:flex;
             flex-direction:column;
-            gap: 5px;
+            gap: 10px;
             padding: 40px;
             background: #fafafa;
             border-radius: 15px;
@@ -525,7 +526,7 @@
         <h2>Aloqa</h2>
         <form id="contactForm">
             <input type="text" id="name" name="name" placeholder="Ismingiz" required>
-            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="phone" name="phone" placeholder="Telefon raqamingiz" required>
             <textarea rows="5" id="message" name="message" placeholder="Xabaringiz" required></textarea>
             <button type="submit">Yuborish</button>
         </form>
@@ -574,49 +575,43 @@
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Get form values
+        // formdan ma'lumot olish
         const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
         const message = document.getElementById('message').value.trim();
 
-        // Basic validation
-        if (!name || !email || !message) {
-            showMessage('Iltimos, barcha maydonlarni to\'ldiring!', 'error');
+        if (!name || !phone || !message) {
+            showMessage("Iltimos, barcha maydonlarni to'ldiring!", "error");
             return;
         }
 
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showMessage('Iltimos, to\'g\'ri email manzilini kiriting!', 'error');
-            return;
+        const formData = { name, phone, message, timestamp: new Date().toISOString() };
+
+        try {
+            const res = await fetch("http://localhost:3000/send-message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (res.ok) {
+                showMessage("Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.", "success");
+                contactForm.reset();
+            } else {
+                showMessage("Xatolik yuz berdi. Iltimos bizga telefon orqali bog'laning.", "error");
+            }
+        } catch(err) {
+            console.error(err);
+            showMessage("Xatolik yuz berdi. Iltimos bizga telefon orqali bog'laning.", "error");
         }
-
-        // Simulate form submission (since there's no backend)
-        // In a real application, you would send this data to a server
-        const formData = {
-            name: name,
-            email: email,
-            message: message,
-            timestamp: new Date().toISOString()
-        };
-
-        // Log to console (for demonstration)
-        console.log('Form submitted:', formData);
-
-        // Show success message
-        showMessage('Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.', 'success');
-
-        // Reset form
-        contactForm.reset();
-
-        // Optional: Send to a service like FormSpree, EmailJS, or your own backend
-        // Example with mailto (opens email client):
-        // window.location.href = `mailto:info@diyorstroy.uz?subject=Yangi xabar - ${name}&body=${message}%0D%0A%0D%0AEmail: ${email}`;
     });
+
 
     function showMessage(text, type) {
         formMessage.textContent = text;
@@ -626,7 +621,7 @@
         // Hide message after 5 seconds
         setTimeout(() => {
             formMessage.style.display = 'none';
-        }, 5000);
+        }, 15000);
     }
 </script>
 
