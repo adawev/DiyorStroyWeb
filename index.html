@@ -7,12 +7,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
+        :root {
+            --green-primary: #16A34A;
+            --green-dark: #15803D;
+            --green-light: #22C55E;
+            --green-50: #F0FDF4;
+            --white: #FFFFFF;
+            --gray-900: #111827;
+            --gray-700: #374151;
+            --gray-100: #F3F4F6;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #ffffff;
-            color: #000000;
+            background: var(--white);
+            color: var(--gray-900);
             margin:0;
             line-height:1.6;
             scroll-behavior: smooth;
@@ -38,7 +49,7 @@
         nav { display:flex; align-items:center; gap:5px; }
         nav a {
             text-decoration:none;
-            color:#000000;
+            color: var(--gray-900);
             font-weight:600;
             font-size:0.95rem;
             transition: all 0.3s ease;
@@ -53,15 +64,15 @@
             left: 50%;
             transform: translateX(-50%) scaleX(0);
             width: 60%;
-            height: 2px;
-            background: #000000;
+            height: 3px;
+            background: var(--green-primary);
             transition: transform 0.3s ease;
         }
         nav a:hover::after {
             transform: translateX(-50%) scaleX(1);
         }
         nav a:hover {
-            color: #000000;
+            color: var(--green-primary);
         }
 
         /* Hamburger */
@@ -69,7 +80,7 @@
         .hamburger div {
             width:28px;
             height:3px;
-            background:#000000;
+            background: var(--green-primary);
             border-radius:2px;
             transition: all 0.3s ease;
         }
@@ -117,21 +128,23 @@
         .hero-btn {
             display: inline-block;
             padding: 18px 45px;
-            background: #ffffff;
-            color: #000000;
+            background: var(--green-primary);
+            color: var(--white);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-            border: 2px solid #ffffff;
+            box-shadow: 0 8px 30px rgba(22, 163, 74, 0.5);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .hero-btn:hover {
-            background: transparent;
-            color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 35px rgba(0,0,0,0.4);
+            background: var(--green-dark);
+            color: var(--white);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(22, 163, 74, 0.6);
         }
 
         /* Info */
@@ -144,7 +157,7 @@
             font-size:2.8rem;
             margin-bottom:30px;
             font-weight: 700;
-            color: #000000;
+            color: var(--gray-900);
             position: relative;
             display: inline-block;
         }
@@ -156,20 +169,20 @@
             transform: translateX(-50%);
             width: 100px;
             height: 5px;
-            background: #000000;
+            background: var(--green-primary);
             border-radius: 3px;
         }
         .info p {
             max-width:900px;
             margin:40px auto 0;
             font-size:1.2rem;
-            color:#333333;
+            color: var(--gray-700);
             line-height: 1.9;
             padding: 40px;
-            background: #f9f9f9;
+            background: var(--green-50);
             border-radius: 15px;
-            border: 2px solid #e8e8e8;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--green-primary);
+            box-shadow: 0 5px 20px rgba(22, 163, 74, 0.08);
         }
 
         /* Gallery */
@@ -182,7 +195,7 @@
             font-size:2.8rem;
             margin-bottom:50px;
             font-weight: 700;
-            color: #000000;
+            color: var(--gray-900);
             position: relative;
             display: inline-block;
         }
@@ -194,7 +207,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 5px;
-            background: #000000;
+            background: var(--green-primary);
             border-radius: 3px;
         }
         .swiper {
@@ -215,20 +228,20 @@
         .swiper-slide img:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 15px 45px rgba(0,0,0,0.2);
-            border-color: #000000;
+            border-color: var(--green-primary);
         }
 
         /* Swiper arrows */
         .swiper-button-prev, .swiper-button-next {
-            color: #000000;
-            background: #ffffff;
+            color: var(--white);
+            background: var(--green-primary);
             width: 50px;
             height: 50px;
             border-radius:50%;
             display:flex;
             align-items:center;
             justify-content:center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
             transition: all 0.3s ease;
         }
         .swiper-button-prev::after, .swiper-button-next::after {
@@ -236,9 +249,10 @@
             font-weight: bold;
         }
         .swiper-button-prev:hover, .swiper-button-next:hover {
-            background: #000000;
-            color: #ffffff;
+            background: var(--green-dark);
+            color: var(--white);
             transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
         }
 
         /* Pagination */
@@ -249,7 +263,7 @@
             opacity: 0.7;
         }
         .swiper-pagination-bullet-active {
-            background:#000000;
+            background: var(--green-primary);
             opacity: 1;
             width: 30px;
             border-radius: 6px;
@@ -270,7 +284,7 @@
             margin-bottom:35px;
             font-size:2.8rem;
             font-weight: 700;
-            color: #000000;
+            color: var(--gray-900);
             position: relative;
             padding-bottom: 15px;
         }
@@ -281,7 +295,7 @@
             left: 0;
             width: 100px;
             height: 5px;
-            background: #000000;
+            background: var(--green-primary);
             border-radius: 3px;
         }
         .contact form {
@@ -305,15 +319,15 @@
         }
         .contact input:focus, .contact textarea:focus {
             outline: none;
-            border-color: #000000;
-            box-shadow: 0 0 0 4px rgba(0,0,0,0.08);
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
             transform: translateY(-2px);
         }
         .contact button {
             padding:18px;
-            border:2px solid #000000;
-            background:#000000;
-            color:#ffffff;
+            border:none;
+            background: var(--green-primary);
+            color: var(--white);
             font-size:1.1rem;
             font-weight: 700;
             border-radius:10px;
@@ -322,12 +336,13 @@
             margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
         }
         .contact button:hover {
-            background:#ffffff;
-            color: #000000;
+            background: var(--green-dark);
+            color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
         }
         .contact button:active {
             transform: translateY(-1px);
@@ -341,26 +356,27 @@
         .contact-info p {
             margin-bottom:0;
             padding: 20px 25px;
-            background: #fafafa;
+            background: var(--green-50);
             border-radius: 12px;
             border: 2px solid #e8e8e8;
-            border-left: 5px solid #000000;
+            border-left: 5px solid var(--green-primary);
             transition: all 0.3s ease;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 3px 15px rgba(22, 163, 74, 0.08);
         }
         .contact-info p:hover {
             transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(22, 163, 74, 0.15);
             border-left-width: 7px;
+            background: #ffffff;
         }
         .contact-info a {
-            color:#000000;
+            color: var(--gray-900);
             text-decoration:none;
             font-weight:600;
             transition: all 0.3s ease;
         }
         .contact-info a:hover {
-            color:#333333;
+            color: var(--green-primary);
         }
         .form-message {
             padding: 15px;
@@ -384,8 +400,8 @@
         footer {
             text-align:center;
             padding:40px 20px;
-            background: #000000;
-            color: #ffffff;
+            background: var(--green-dark);
+            color: var(--white);
             font-size:1rem;
             font-weight: 500;
         }
@@ -429,12 +445,12 @@
                 width: 100%;
                 text-align: left;
                 border-radius: 0;
-                color: #000000;
+                color: var(--gray-900);
             }
             nav a::after { display: none; }
             nav a:hover {
-                background: #f5f5f5;
-                color: #000000;
+                background: var(--green-50);
+                color: var(--green-primary);
             }
             nav.active { display:flex; }
             .hamburger { display:flex; }
@@ -550,7 +566,7 @@
         slidesPerView: 3,
         spaceBetween: 20,
         loop: true,
-        autoplay: { delay: 1000, disableOnInteraction: false },
+        autoplay: { delay: 5000, disableOnInteraction: false },
         pagination: { el: '.swiper-pagination', clickable:true },
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         breakpoints: { 0:{ slidesPerView:1 }, 480:{ slidesPerView:1 }, 768:{ slidesPerView:2 }, 1024:{ slidesPerView:3 } }
@@ -591,7 +607,7 @@
         const formData = { name, phone, message, timestamp: new Date().toISOString() };
 
         try {
-            const res = await fetch("http://localhost:3000/send-message", {
+            const res = await fetch("https://diyorstroyweb.onrender.com/send-message", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
