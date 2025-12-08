@@ -6,9 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const TELEGRAM_TOKEN = "8332460446:AAHcT1uaL19rv6yiz-RoG7vsmgggpJI5zCA";
-const CHAT_ID = "6901843919";
-const CHAT_ID_2 = "1744279411";
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
+const CHAT_ID_2 = process.env.CHAT_ID_2;
 
 app.post("/send-message", async (req, res) => {
     const { name, phone, message } = req.body;
