@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
         :root {
-            --green-primary: #16A34A;
-            --green-dark: #15803D;
-            --green-light: #22C55E;
-            --green-50: #F0FDF4;
+            --green-primary: #010c13;
+            --green-dark: #010b12;
+            --green-light: #001524;
+            --green-50: rgba(82, 87, 92, 0.07);
             --white: #FFFFFF;
             --gray-900: #111827;
             --gray-700: #374151;
@@ -135,7 +135,7 @@
             font-size: 1.1rem;
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(22, 163, 74, 0.5);
+            box-shadow: 0 12px 40px rgb(2, 26, 43);
             border: none;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -144,7 +144,7 @@
             background: var(--green-dark);
             color: var(--white);
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(22, 163, 74, 0.6);
+            box-shadow: 0 12px 40px rgb(3, 23, 37);
         }
 
         /* Info */
@@ -182,7 +182,7 @@
             background: var(--green-50);
             border-radius: 15px;
             border-left: 5px solid var(--green-primary);
-            box-shadow: 0 5px 20px rgba(22, 163, 74, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
 
         /* Gallery */
@@ -241,7 +241,7 @@
             display:flex;
             align-items:center;
             justify-content:center;
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+            box-shadow: 0 12px 40px rgb(1, 17, 28);
             transition: all 0.3s ease;
         }
         .swiper-button-prev::after, .swiper-button-next::after {
@@ -252,7 +252,8 @@
             background: var(--green-dark);
             color: var(--white);
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
+            box-shadow: 0 12px 40px rgb(1, 17, 28);
+
         }
 
         /* Pagination */
@@ -320,7 +321,7 @@
         .contact input:focus, .contact textarea:focus {
             outline: none;
             border-color: var(--green-primary);
-            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.27);
             transform: translateY(-2px);
         }
         .contact button {
@@ -336,13 +337,13 @@
             margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
         }
         .contact button:hover {
             background: var(--green-dark);
             color: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.27);
+
         }
         .contact button:active {
             transform: translateY(-1px);
@@ -361,11 +362,11 @@
             border: 2px solid #e8e8e8;
             border-left: 5px solid var(--green-primary);
             transition: all 0.3s ease;
-            box-shadow: 0 3px 15px rgba(22, 163, 74, 0.08);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
         }
         .contact-info p:hover {
             transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(22, 163, 74, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             border-left-width: 7px;
             background: #ffffff;
         }
