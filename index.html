@@ -687,7 +687,7 @@
         .contact-link:hover { color: var(--orange); }
 
         .link-arrow {
-            opacity: 0.3;
+            opacity: 0.4;
             transition: opacity 0.15s, transform 0.15s;
             width: 20px;
             height: 20px;
@@ -697,14 +697,14 @@
             justify-content: center;
         }
 
-        .link-arrow svg {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .link-arrow::after {
+            content: '';
+            display: block;
+            width: 9px;
+            height: 9px;
+            border-top: 1.5px solid currentColor;
+            border-right: 1.5px solid currentColor;
+            transform: rotate(45deg) translate(-2px, 2px);
         }
 
         .contact-link:hover .link-arrow {
@@ -1130,15 +1130,15 @@
             <div class="contact-links">
                 <a href="tel:+998976461000" class="contact-link">
                     <span>+998 97 646 10 00</span>
-                    <span class="link-arrow"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+                    <span class="link-arrow"></span>
                 </a>
                 <a href="https://t.me/diyorstroy" target="_blank" rel="noopener" class="contact-link">
                     <span>Telegram — @diyorstroy</span>
-                    <span class="link-arrow"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+                    <span class="link-arrow"></span>
                 </a>
                 <a href="https://instagram.com/diyor.stroy" target="_blank" rel="noopener" class="contact-link">
                     <span>Instagram — @diyor.stroy</span>
-                    <span class="link-arrow"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+                    <span class="link-arrow"></span>
                 </a>
             </div>
         </div>
