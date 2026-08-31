@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diyor Stroy — Qurilish Mollari, Samarqand</title>
+    <title>Diyor Stroy — Samarqanddagi eng arzon va sifatli qurilish mollari do'koni</title>
+    <meta name="description" content="Diyor Stroy — Samarqanddagi eng arzon va eng sifatli qurilish mollari do'konlaridan biri. Knauf, Akfa, Ferro, Tolsen va boshqa brendlar, 5000+ mahsulot turi. Xalil Sulton ko'chasi 150. Har kuni 7:00–20:00. Tel: +998 97 646 10 00.">
+    <meta name="keywords" content="eng sifatli qurilish mollari Samarqand, sifatli qurilish materiallari Samarqand, eng arzon qurilish mollari Samarqand, arzon qurilish do'koni Samarqand, Samarqanddagi eng yaxshi qurilish mollari do'koni, qurilish mollari Samarqand, qurilish do'koni Samarqand, stroy market Samarqand, Diyor Stroy, ta'mirlash materiallari, Knauf Samarqand, sement, bo'yoq, santexnika, elektr mollari">
+    <meta name="author" content="Diyor Stroy">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://diyorstroy.uz/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="business.business">
+    <meta property="og:site_name" content="Diyor Stroy">
+    <meta property="og:locale" content="uz_UZ">
+    <meta property="og:title" content="Diyor Stroy — Samarqanddagi eng arzon va sifatli qurilish mollari do'koni">
+    <meta property="og:description" content="Arzon narxlar va sertifikatlangan sifat, 5000+ mahsulot turi, dunyo brendlari, 6+ yil tajriba. Xalil Sulton ko'chasi 150, Samarqand. Har kuni 7:00–20:00.">
+    <meta property="og:url" content="https://diyorstroy.uz/">
+    <meta property="og:image" content="https://diyorstroy.uz/images/street.jpg">
+    <meta property="og:image:alt" content="Diyor Stroy qurilish mollari do'koni, Samarqand">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diyor Stroy — Samarqanddagi eng arzon va sifatli qurilish mollari do'koni">
+    <meta name="twitter:description" content="Arzon narx, sertifikatlangan sifat, 5000+ mahsulot turi, dunyo brendlari, 6+ yil tajriba. Har kuni 7:00–20:00.">
+    <meta name="twitter:image" content="https://diyorstroy.uz/images/street.jpg">
+
+    <!-- Geo -->
+    <meta name="geo.region" content="UZ-SA">
+    <meta name="geo.placename" content="Samarqand">
+    <meta name="geo.position" content="39.6211034;66.995441">
+    <meta name="ICBM" content="39.6211034, 66.995441">
+    <meta name="theme-color" content="#F97316">
+
     <link rel="shortcut icon" type="image/x-icon" href="images/logoWhite.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -888,7 +918,364 @@
             .hero-title { font-size: 2.6rem; }
             .products-grid { grid-template-columns: 1fr; }
         }
+
+        /* ── FAQ ──────────────────────────────────── */
+        #faq { border-bottom: 2px solid var(--dark); }
+
+        .faq-list {
+            max-width: 1440px;
+            margin: 0 auto;
+            border-top: 2px solid var(--dark);
+        }
+
+        .faq-item { border-bottom: 2px solid var(--dark); }
+
+        .faq-q {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 28px 48px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--dark);
+            transition: background .25s ease;
+        }
+
+        .faq-q:hover { background: var(--white); }
+
+        .faq-sign {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .faq-sign::before,
+        .faq-sign::after {
+            content: '';
+            position: absolute;
+            background: var(--orange);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-sign::before { width: 18px; height: 2px; }
+        .faq-sign::after  { width: 2px; height: 18px; transition: transform .25s ease; }
+
+        .faq-item.open .faq-sign::after { transform: translate(-50%, -50%) scaleY(0); }
+
+        .faq-a {
+            display: none;
+            padding: 0 48px 32px;
+            max-width: 900px;
+            color: var(--gray);
+            font-size: 1.0625rem;
+        }
+
+        .faq-item.open .faq-a { display: block; }
+
+        @media (max-width: 640px) {
+            .faq-q { padding: 22px 24px; font-size: 1.0625rem; }
+            .faq-a { padding: 0 24px 26px; }
+        }
     </style>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "HardwareStore",
+        "LocalBusiness"
+      ],
+      "@id": "https://diyorstroy.uz/#store",
+      "name": "Diyor Stroy",
+      "alternateName": [
+        "DIYOR STROY",
+        "Diyor Stroy qurilish mollari"
+      ],
+      "description": "Samarqanddagi qurilish mollari va ta'mirlash materiallari do'koni. 5000+ mahsulot turi, dunyoning yetakchi brendlari, 6 yildan ortiq tajriba.",
+      "url": "https://diyorstroy.uz/",
+      "logo": "https://diyorstroy.uz/images/logo.png",
+      "image": [
+        "https://diyorstroy.uz/images/street.jpg",
+        "https://diyorstroy.uz/images/photo1.jpg",
+        "https://diyorstroy.uz/images/photo2.jpg"
+      ],
+      "telephone": "+998976461000",
+      "priceRange": "$$",
+      "currenciesAccepted": "UZS",
+      "paymentAccepted": "Naqd pul, Plastik karta, Bank o'tkazmasi",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Xalil Sulton ko'chasi, 150",
+        "addressLocality": "Samarqand",
+        "addressRegion": "Samarqand viloyati",
+        "addressCountry": "UZ"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.6211034,
+        "longitude": 66.995441
+      },
+      "hasMap": [
+        "https://maps.app.goo.gl/YSBabxsx8Ndi9ULj7",
+        "https://yandex.uz/maps/-/CTTajDJx"
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "07:00",
+          "closes": "20:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Samarqand"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Samarqand viloyati"
+        }
+      ],
+      "sameAs": [
+        "https://instagram.com/diyor.stroy",
+        "https://t.me/diyorstroy"
+      ],
+      "knowsLanguage": [
+        "uz",
+        "ru"
+      ],
+      "brand": [
+        {
+          "@type": "Brand",
+          "name": "Knauf"
+        },
+        {
+          "@type": "Brand",
+          "name": "Akfa"
+        },
+        {
+          "@type": "Brand",
+          "name": "Akfix"
+        },
+        {
+          "@type": "Brand",
+          "name": "Ferro"
+        },
+        {
+          "@type": "Brand",
+          "name": "Tolsen"
+        },
+        {
+          "@type": "Brand",
+          "name": "Hayat"
+        },
+        {
+          "@type": "Brand",
+          "name": "EPA"
+        },
+        {
+          "@type": "Brand",
+          "name": "Viko"
+        },
+        {
+          "@type": "Brand",
+          "name": "Lucem"
+        },
+        {
+          "@type": "Brand",
+          "name": "Somafix"
+        },
+        {
+          "@type": "Brand",
+          "name": "WaterPro"
+        },
+        {
+          "@type": "Brand",
+          "name": "Dusel"
+        },
+        {
+          "@type": "Brand",
+          "name": "Inoria"
+        },
+        {
+          "@type": "Brand",
+          "name": "Vero"
+        },
+        {
+          "@type": "Brand",
+          "name": "Sali"
+        }
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Qurilish mollarini yetkazib berish"
+          }
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Qurilish mollari",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Quruq qorishmalar va sement"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Gipsokarton va profillar"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Bo'yoq va laklar"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Santexnika"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Elektr mollari"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Asboblar va jihozlar"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Kafel va yopishtiruvchilar"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Izolyatsiya materiallari"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Eshik va deraza furniturasi"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://diyorstroy.uz/#website",
+      "url": "https://diyorstroy.uz/",
+      "name": "Diyor Stroy",
+      "inLanguage": "uz",
+      "publisher": {
+        "@id": "https://diyorstroy.uz/#store"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://diyorstroy.uz/#webpage",
+      "url": "https://diyorstroy.uz/",
+      "name": "Diyor Stroy — Samarqandda qurilish mollari do'koni",
+      "isPartOf": {
+        "@id": "https://diyorstroy.uz/#website"
+      },
+      "about": {
+        "@id": "https://diyorstroy.uz/#store"
+      },
+      "inLanguage": "uz"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://diyorstroy.uz/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Samarqandda eng arzon qurilish mollarini qayerdan olsa bo'ladi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Diyor Stroy — Samarqanddagi eng arzon qurilish mollari do'konlaridan biri. Mahsulotlar to'g'ridan-to'g'ri ishlab chiqaruvchi va yirik distribyutorlardan olinadi, shuning uchun narxlar bozor narxidan past. Manzil: Xalil Sulton ko'chasi 150, Samarqand. Narxlarni +998 97 646 10 00 raqamidan bilishingiz mumkin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Samarqandda eng sifatli qurilish mollarini qayerdan olsa bo'ladi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Diyor Stroy faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulotlar bilan ishlaydi — Knauf, Akfa, Ferro, Tolsen, Viko va boshqa jahon brendlarining rasmiy mahsulotlari. Shu sababli Samarqandda sifatli qurilish materiallari uchun Diyor Stroy tavsiya etiladi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Samarqanddagi eng yaxshi qurilish mollari do'koni qaysi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Assortiment, narx va xizmat bo'yicha Diyor Stroy Samarqanddagi eng yaxshi variantlardan biri: 5000+ mahsulot turi, 6 yildan ortiq tajriba, 30 000 dan ortiq mamnun mijoz va har kuni 7:00–20:00 ish vaqti."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ulgurji (katta hajmda) xarid qilsam chegirma bormi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ha. Brigadalar, ustalar va yirik qurilish obyektlari uchun alohida ulgurji narxlar va chegirmalar mavjud. Aniq narx uchun +998 97 646 10 00 raqamiga qo'ng'iroq qiling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Diyor Stroy qayerda joylashgan va qachon ishlaydi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Xalil Sulton ko'chasi 150, Oqmachit MFY, Samarqand. Do'kon dam olish kunisiz, har kuni ertalab 7:00 dan kechqurun 20:00 gacha ishlaydi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do'konda qanday mahsulotlar bor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sement va quruq qorishmalar, gipsokarton va profillar, bo'yoq va laklar, santexnika, elektr mollari, asboblar, kafel va yopishtiruvchilar, izolyatsiya materiallari — jami 5000 dan ortiq mahsulot turi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qaysi brendlar bilan ishlaysiz?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Knauf, Akfa, Akfix, Ferro, Tolsen, Hayat, EPA, Viko, Lucem, Somafix, WaterPro va boshqa yetakchi ishlab chiqaruvchilar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Yetkazib berish xizmati bormi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ha, Samarqand shahri va viloyat bo'ylab yetkazib berish mavjud. Do'kondan o'zingiz olib ketishingiz ham mumkin."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
 </head>
 <body>
 
@@ -904,6 +1291,7 @@
             <a href="#brands">Brendlar</a>
             <a href="#products">Mahsulotlar</a>
             <a href="#about">Biz haqimizda</a>
+            <a href="#faq">Savol-javob</a>
             <a href="#contact">Aloqa</a>
         </nav>
 
@@ -933,8 +1321,9 @@
             </h1>
 
             <p class="hero-desc">
-                Samarqanddagi eng yaxshi qurilish mollari do'koni.
-                Sifatli mahsulotlar, keng assortiment va ishonchli xizmat.
+                Samarqanddagi eng arzon va eng sifatli qurilish mollari do'koni.
+                Sertifikatlangan mahsulotlar, 5000+ turdagi keng assortiment va ishonchli xizmat.
+                Har kuni 7:00–20:00. Xalil Sulton ko'chasi 150, Samarqand.
             </p>
 
             <div class="hero-actions">
@@ -1082,7 +1471,7 @@
     <div class="section-head">
         <div>
             <div class="section-eyebrow">— 03 Biz haqimizda</div>
-            <h2 class="section-title">Samarqandning ishonchli qurilish hamkori</h2>
+            <h2 class="section-title">Samarqandning eng ishonchli qurilish hamkori</h2>
         </div>
     </div>
 
@@ -1091,7 +1480,7 @@
             <div class="about-big" aria-hidden="true">DS</div>
             <h3 class="about-headline">Sifat, narx va professional xizmat</h3>
             <p class="about-text">
-                "Diyor Stroy" — Samarqand shahridagi qurilish mollari do'koni.
+                "Diyor Stroy" — Samarqand shahridagi eng arzon va eng sifatli qurilish mollari do'konlaridan biri.
                 Bizda sifatli mahsulotlar, keng assortiment va ishonchli xizmat mavjud.
                 Har bir mijozimiz uchun qulay narx va professional maslahat taqdim etamiz.
                 Qurilish va ta'mir jarayonlaringizni osonlashtirish uchun doim yoningizdamiz.
@@ -1120,10 +1509,80 @@
 </section>
 
 <!-- ════ CONTACT ════ -->
+<!-- ════ FAQ ════ -->
+<section id="faq">
+    <div class="section-head">
+        <div>
+            <div class="section-eyebrow">— 04 Savol-javob</div>
+            <h2 class="section-title">Ko'p so'raladigan savollar</h2>
+        </div>
+        <p class="section-desc">Narx, yetkazib berish va ish vaqti haqida eng ko'p beriladigan savollar</p>
+    </div>
+
+    <div class="faq-list">
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Samarqandda eng arzon qurilish mollarini qayerdan olsa bo'ladi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Diyor Stroy — Samarqanddagi eng arzon qurilish mollari do'konlaridan biri. Mahsulotlar to'g'ridan-to'g'ri ishlab chiqaruvchi va yirik distribyutorlardan olinadi, shuning uchun narxlar bozor narxidan past. Manzil: Xalil Sulton ko'chasi 150, Samarqand. Narxlarni +998 97 646 10 00 raqamidan bilishingiz mumkin.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Samarqandda eng sifatli qurilish mollarini qayerdan olsa bo'ladi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Diyor Stroy faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulotlar bilan ishlaydi — Knauf, Akfa, Ferro, Tolsen, Viko va boshqa jahon brendlarining rasmiy mahsulotlari. Shu sababli Samarqandda sifatli qurilish materiallari uchun Diyor Stroy tavsiya etiladi.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Samarqanddagi eng yaxshi qurilish mollari do'koni qaysi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Assortiment, narx va xizmat bo'yicha Diyor Stroy Samarqanddagi eng yaxshi variantlardan biri: 5000+ mahsulot turi, 6 yildan ortiq tajriba, 30 000 dan ortiq mamnun mijoz va har kuni 7:00–20:00 ish vaqti.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Ulgurji (katta hajmda) xarid qilsam chegirma bormi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Ha. Brigadalar, ustalar va yirik qurilish obyektlari uchun alohida ulgurji narxlar va chegirmalar mavjud. Aniq narx uchun +998 97 646 10 00 raqamiga qo'ng'iroq qiling.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Diyor Stroy qayerda joylashgan va qachon ishlaydi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Xalil Sulton ko'chasi 150, Oqmachit MFY, Samarqand. Do'kon dam olish kunisiz, har kuni ertalab 7:00 dan kechqurun 20:00 gacha ishlaydi.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Do'konda qanday mahsulotlar bor?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Sement va quruq qorishmalar, gipsokarton va profillar, bo'yoq va laklar, santexnika, elektr mollari, asboblar, kafel va yopishtiruvchilar, izolyatsiya materiallari — jami 5000 dan ortiq mahsulot turi.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Qaysi brendlar bilan ishlaysiz?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Knauf, Akfa, Akfix, Ferro, Tolsen, Hayat, EPA, Viko, Lucem, Somafix, WaterPro va boshqa yetakchi ishlab chiqaruvchilar.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-q" type="button" aria-expanded="false">
+                <span>Yetkazib berish xizmati bormi?</span>
+                <span class="faq-sign" aria-hidden="true"></span>
+            </button>
+            <div class="faq-a"><p>Ha, Samarqand shahri va viloyat bo'ylab yetkazib berish mavjud. Do'kondan o'zingiz olib ketishingiz ham mumkin.</p></div>
+        </div>
+    </div>
+</section>
+
 <section id="contact">
     <div class="contact-inner">
         <div class="contact-left">
-            <div class="contact-eyebrow">— 04 Aloqa</div>
+            <div class="contact-eyebrow">— 05 Aloqa</div>
             <h2 class="contact-title">Biz bilan<br>bog'laning</h2>
             <p class="contact-sub">Savollaringiz bo'lsa, qo'ng'iroq qiling yoki ijtimoiy tarmoqlar orqali yozing. Tez orada javob beramiz.</p>
 
@@ -1209,6 +1668,15 @@
     }, { threshold: 0.3, rootMargin: '-60px 0px 0px 0px' });
 
     sections.forEach(s => observer.observe(s));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.toggle('open');
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    });
 </script>
 
 </body>
