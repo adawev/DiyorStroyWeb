@@ -6,7 +6,9 @@ export const site = {
   domain: 'https://diyorstroy.uz',
   phone: '+998 97 646 10 00',
   phoneHref: 'tel:+998976461000',
-  telegram: 'https://t.me/diyorstroy',
+  telegram: 'https://t.me/diyorstroy', // rasmiy kanal
+  telegramChat: 'https://t.me/DiyorStroy1', // aloqa uchun shaxsiy hisob
+  telegramChatHandle: '@DiyorStroy1',
   instagram: 'https://instagram.com/diyor.stroy',
   instagramHandle: '@diyor.stroy',
   address: "Xalil Sulton ko'chasi 150, Oqmachit MFY, Samarqand",

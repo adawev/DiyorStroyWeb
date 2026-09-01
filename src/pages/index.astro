@@ -5,11 +5,11 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import OpenStatus from '../components/OpenStatus.astro';
+import CinematicFooter from '../components/CinematicFooter.astro';
 import { site, stats, categories, advantages, services, brands, faq } from '../data/site.js';
 
-import street from '../../images/street.jpg';
 import logoWhite from '../../images/logoWhite.png';
-import heroObject from '../../images/hero/object.png';
+import heroArt from '../../images/hero/hero-ai.png';
 
 const photoMods = import.meta.glob<ImageMetadata>('../../images/photo*.jpg', {
   eager: true,
@@ -50,7 +50,14 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   <!-- ============ HERO ============ -->
   <header class="hero panel">
     <div class="hero__bg" data-parallax>
-      <Image src={street} alt="" widths={[720, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <Image
+        src={heroArt}
+        alt="Sement, gipsokarton, bo'yoq, santexnika, elektr mollari va asbob-uskuna — Diyor Stroy assortimenti"
+        widths={[900, 1500, 2200]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
     <div class="hero__scrim"></div>
 
@@ -66,26 +73,28 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
       </p>
       <div class="hero__cta">
         <a class="btn" href={site.phoneHref}>Qo'ng'iroq qilish <Icon name="arrow" size={18} /></a>
-        <a class="btn btn--ghost" href={site.telegram} target="_blank" rel="noopener">
+        <a class="btn btn--ghost" href={site.telegramChat} target="_blank" rel="noopener">
           <Icon name="telegram" size={18} /> Telegram
         </a>
       </div>
     </div>
 
-    <div class="hero__object">
-      <Image src={heroObject} alt="" widths={[420, 760, 1100]} sizes="(max-width: 900px) 70vw, 42vw" />
-    </div>
 
     <a class="hero__cue" href="#manifest"><span>Pastga</span><Icon name="arrow-down" size={18} /></a>
   </header>
 
   <!-- ============ MANIFEST ============ -->
   <section class="manifest panel" id="manifest">
-    <p class="manifest__text" data-reveal>
-      Arzon va sifatli odatda bir joyda uchramaydi.
-      <b>Bizda uchraydi</b> — chunki mahsulot ishlab chiqaruvchi va yirik
-      distribyutorlardan to'g'ridan-to'g'ri olinadi, oraliq ustama yo'q.
-    </p>
+    <div class="manifest__lede">
+      <p class="manifest__text" data-reveal>
+        <span>Arzon va sifatli odatda bir joyda uchramaydi.</span>
+        <b>Bizda uchraydi.</b>
+      </p>
+      <p class="manifest__sub" data-reveal style="--reveal-delay:120ms">
+        Sababi oddiy: mahsulot ishlab chiqaruvchi va yirik distribyutorlardan
+        to'g'ridan-to'g'ri olinadi — oraliq ustama yo'q.
+      </p>
+    </div>
     <ol class="manifest__grid">
       {
         advantages.map((a, i) => (
@@ -103,7 +112,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   <section class="rail" id="toifalar">
     <div class="rail__head">
       <h2>Toifalar</h2>
-      <p>O'ngga suring. Kerakli toifani ayting — narxni telefonda aytamiz.</p>
+      <p>O'ngga suring. Kerakli toifani ayting — aniq narxni qo'ng'iroqda aytamiz.</p>
     </div>
     <ul class="rail__track" data-drag>
       {
@@ -180,7 +189,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   <section class="split" id="ulgurji">
     <div class="split__left">
       <p class="tagline tagline--dark">Ulgurji va brigadalar</p>
-      <h2>07:00 da<br />ochamiz</h2>
+      <h2>Ertalab<br />07:00 dan ochiq</h2>
       <p class="split__lead">
         Brigada ish boshlashidan oldin material olib ulgursin. Katta hajmdagi
         buyurtmalarga alohida chegirma narx.
@@ -190,24 +199,20 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
       </ul>
     </div>
 
-    <form class="split__form" name="ulgurji-v3" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="ulgurji-v3" />
-      <p class="hp"><label>Bo'sh qoldiring <input name="bot-field" /></label></p>
+    <div class="split__contact">
       <h3>Chegirma narx so'rash</h3>
-      <label>
-        <span>Ismingiz</span>
-        <input type="text" name="ism" required autocomplete="name" placeholder="Ism" />
-      </label>
-      <label>
-        <span>Telefon</span>
-        <input type="tel" name="telefon" required autocomplete="tel" placeholder="+998 __ ___ __ __" />
-      </label>
-      <label>
-        <span>Nima kerak</span>
-        <textarea name="sorov" rows="3" required placeholder="200 qop sement, 40 list gipsokarton…"></textarea>
-      </label>
-      <button class="btn" type="submit">Yuborish <Icon name="arrow" size={18} /></button>
-    </form>
+      <p class="split__contact-lead">
+        Kerakli materialni ayting — narxini va bor-yo'qligini shu yerda aytamiz.
+      </p>
+      <a class="split__phone tnum" href={site.phoneHref}>
+        {site.phone}
+        <Icon name="arrow" size={26} />
+      </a>
+      <a class="btn btn--tg" href={site.telegramChat} target="_blank" rel="noopener">
+        <Icon name="telegram" size={18} /> Telegramda yozish
+      </a>
+      <p class="split__contact-note tnum">{site.hours} · {site.hoursNote}</p>
+    </div>
   </section>
 
   <!-- ============ MANZIL ============ -->
@@ -246,28 +251,12 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     </ul>
   </section>
 
-  <!-- ============ CTA + FOOTER ============ -->
-  <section class="cta">
-    <h2>Narxni telefonda<br />aytamiz</h2>
-    <a class="cta__phone tnum" href={site.phoneHref}>{site.phone} <Icon name="arrow" size={30} /></a>
-    <div class="cta__row">
-      <a class="btn btn--ghost" href={site.telegram} target="_blank" rel="noopener"><Icon name="telegram" size={18} /> Telegram</a>
-      <a class="btn btn--ghost" href={site.instagram} target="_blank" rel="noopener"><Icon name="instagram" size={18} /> Instagram</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p class="footer__word">Diyor Stroy</p>
-    <div class="footer__row">
-      <span>{site.address}</span>
-      <span class="tnum">{site.hours} · har kuni</span>
-      <span>© {new Date().getFullYear()}</span>
-    </div>
-  </footer>
+  <!-- ============ FOOTER ============ -->
+  <CinematicFooter />
 
   <div class="mobilebar">
     <a href={site.phoneHref}><Icon name="phone" size={19} /> Qo'ng'iroq</a>
-    <a href={site.telegram} target="_blank" rel="noopener"><Icon name="telegram" size={19} /> Telegram</a>
+    <a href={site.telegramChat} target="_blank" rel="noopener"><Icon name="telegram" size={19} /> Telegram</a>
   </div>
 
   <script>
@@ -454,22 +443,25 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
   /* ================= HERO ================= */
   .hero { overflow: clip; padding: 120px clamp(20px, 5vw, 88px) 96px; }
-  .hero__bg { position: absolute; inset: -6% 0; z-index: 0; }
+  .hero__bg { position: absolute; inset: -4% 0; z-index: 0; }
   .hero__bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: translateY(var(--shift, 0)) scale(1.08);
-    filter: contrast(1.12) saturate(0.5) brightness(0.5);
+    object-position: 78% 62%;
+    transform: translateY(var(--shift, 0)) scale(1.04);
+    filter: contrast(1.06) brightness(0.94);
     transition: transform 0.2s linear;
   }
+  /* Matn o'qilishi uchun: chapdan qattiq, o'ngda mahsulot ochiq qoladi. */
   .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(85deg, rgb(10 10 11 / 0.95) 12%, rgb(10 10 11 / 0.5) 60%, rgb(10 10 11 / 0.85)),
-      linear-gradient(to top, var(--color-bg-900) 1%, transparent 30%);
+      linear-gradient(100deg, var(--color-bg-900) 8%, rgb(10 10 11 / 0.92) 30%, rgb(10 10 11 / 0.35) 56%, transparent 76%),
+      linear-gradient(to top, var(--color-bg-900) 0%, transparent 26%),
+      linear-gradient(to bottom, rgb(10 10 11 / 0.7) 0%, transparent 22%);
   }
   .hero__body { position: relative; z-index: 3; max-width: 900px; }
   .hero h1 {
@@ -492,20 +484,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     color: var(--color-fg-300);
   }
   .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-
-  .hero__object {
-    position: absolute;
-    z-index: 2;
-    right: clamp(-40px, -2vw, 0px);
-    bottom: 0;
-    width: min(46vw, 620px);
-    pointer-events: none;
-  }
-  .hero__object img {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 40px 70px rgb(0 0 0 / 0.7));
-  }
 
   .hero__cue {
     position: absolute;
@@ -533,16 +511,30 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     padding: clamp(88px, 12vh, 140px) clamp(20px, 5vw, 88px);
     min-height: auto;
   }
+  .manifest__lede {
+    display: grid;
+    gap: clamp(20px, 2.6vw, 32px);
+    max-width: 62ch;
+  }
   .manifest__text {
-    max-width: 24ch;
+    display: grid;
+    gap: 0.14em;
     font-family: var(--display);
     font-weight: 400;
-    font-size: clamp(26px, 4.4vw, 62px);
-    line-height: 1.16;
-    letter-spacing: -0.035em;
-    color: var(--color-fg-500);
+    font-size: clamp(25px, 3.6vw, 50px);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
   }
+  /* Birinchi qator xiraroq, xulosa yorqin — o'qish osonlashadi. */
+  .manifest__text span { color: var(--color-fg-300); }
   .manifest__text b { font-weight: 700; color: var(--color-fg-100); }
+  .manifest__sub {
+    max-width: 52ch;
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.65;
+    color: var(--color-fg-300);
+  }
   .manifest__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -787,48 +779,58 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   }
   .split__services b { color: #fff; font-weight: 700; }
 
-  .split__form {
+  .split__contact {
     padding: clamp(40px, 6vw, 88px) clamp(24px, 4vw, 72px);
     display: grid;
     align-content: center;
+    justify-items: start;
+    gap: 0;
     background: var(--color-bg-800);
   }
-  .split__form h3 {
+  .split__contact h3 {
     font-family: var(--display);
-    font-size: clamp(22px, 2.4vw, 30px);
+    font-size: clamp(24px, 2.8vw, 36px);
     font-weight: 600;
     letter-spacing: -0.03em;
     color: var(--color-fg-100);
-    margin-bottom: 24px;
   }
-  .split__form label { display: block; margin-bottom: 16px; }
-  .split__form label > span {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  .split__contact-lead {
+    margin-top: 14px;
+    max-width: 34ch;
+    font-size: 16px;
+    color: var(--color-fg-300);
+  }
+  .split__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 30px;
+    font-family: var(--display);
+    font-size: clamp(26px, 3.2vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--color-accent);
+    transition: color 0.2s var(--ease-out-expo);
+  }
+  .split__phone :global(svg) { transition: transform 0.25s var(--ease-out-expo); }
+  .split__phone:hover { color: var(--color-accent-hot); }
+  .split__phone:hover :global(svg) { transform: translateX(8px); }
+  .btn--tg {
+    margin-top: 26px;
+    background: transparent;
+    color: var(--color-fg-100);
+    border: 1px solid var(--line);
+  }
+  .btn--tg:hover { background: rgb(255 255 255 / 0.06); border-color: var(--color-fg-100); }
+  .split__contact-note {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line-2);
+    width: 100%;
+    font-size: 13px;
+    letter-spacing: 0.04em;
     color: var(--color-fg-500);
   }
-  .split__form input,
-  .split__form textarea {
-    width: 100%;
-    min-height: 52px;
-    padding: 14px 18px;
-    background: var(--color-bg-900);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    color: var(--color-fg-100);
-    font: inherit;
-    font-size: 16px;
-    transition: border-color 0.2s var(--ease-out-expo);
-  }
-  .split__form textarea { resize: vertical; }
-  .split__form input::placeholder, .split__form textarea::placeholder { color: #8e9199; }
-  .split__form input:focus, .split__form textarea:focus { outline: none; border-color: var(--color-accent); }
-  .split__form .btn { justify-content: center; margin-top: 4px; }
-  .hp { position: absolute; left: -9999px; }
 
   /* ================= XARITA ================= */
   .map { position: relative; height: min(88svh, 720px); overflow: hidden; }
@@ -928,61 +930,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   .faq details[open] summary i::after { opacity: 0; transform: translate(-50%, -50%); }
   .faq details p { padding: 0 70px 28px 0; max-width: 76ch; color: var(--color-fg-300); }
 
-  /* ================= CTA + FOOTER ================= */
-  .cta {
-    padding: clamp(64px, 10vh, 128px) clamp(20px, 5vw, 88px);
-    border-top: 1px solid var(--line-2);
-  }
-  .cta h2 {
-    font-family: var(--display);
-    font-size: clamp(32px, 5vw, 72px);
-    font-weight: 700;
-    line-height: 0.98;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-    color: var(--color-fg-100);
-  }
-  .cta__phone {
-    display: inline-flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 32px;
-    font-family: var(--display);
-    font-size: clamp(24px, 3.6vw, 46px);
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    color: var(--color-accent);
-    transition: color 0.2s var(--ease-out-expo);
-  }
-  .cta__phone :global(svg) { transition: transform 0.25s var(--ease-out-expo); }
-  .cta__phone:hover { color: var(--color-accent-hot); }
-  .cta__phone:hover :global(svg) { transform: translateX(8px); }
-  .cta__row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-
-  .footer { padding: 0 clamp(20px, 5vw, 88px) 120px; overflow: clip; }
-  .footer__word {
-    font-family: var(--display);
-    font-size: clamp(44px, 15vw, 220px);
-    font-weight: 700;
-    line-height: 0.85;
-    letter-spacing: -0.06em;
-    text-transform: uppercase;
-    color: transparent;
-    -webkit-text-stroke: 1px rgb(255 255 255 / 0.16);
-    white-space: nowrap;
-  }
-  .footer__row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line-2);
-    font-size: 13px;
-    color: var(--color-fg-500);
-  }
-
   .mobilebar { display: none; }
 
   /* ================= RESPONSIVE ================= */
@@ -998,7 +945,19 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     .topbar__call span { display: none; }
     .topbar__call { width: 46px; height: 46px; justify-content: center; padding: 0; }
     .hero { padding-bottom: 140px; }
-    .hero__object { width: 74vw; right: -14vw; opacity: 0.6; }
+    /* Mobilda rasm pastki lentaga tushadi — matn ustiga tushmaydi. */
+    .hero { padding-top: 112px; padding-bottom: 44svh; }
+    .hero__bg { inset: auto 0 76px 0; height: 46svh; }
+    .hero__bg img {
+      object-position: 56% 62%;
+      transform: none;
+      filter: contrast(1.05) brightness(0.98);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 88%, transparent 100%);
+    }
+    .hero__scrim {
+      background: linear-gradient(to top, var(--color-bg-900) 1%, transparent 26%);
+    }
     .hero__cue { display: none; }
     .map__card { position: static; transform: none; width: 100%; border-radius: 0; }
     .map { height: auto; }
@@ -1011,7 +970,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     .manifest__grid li { border-right: 0; padding-left: 0 !important; border-top: 1px solid var(--line-2); }
     .stats li { flex-direction: column; align-items: flex-start; gap: 6px; }
     .faq details p { padding-right: 0; }
-    .footer { padding-bottom: 150px; }
     .mobilebar {
       position: fixed;
       z-index: 80;
