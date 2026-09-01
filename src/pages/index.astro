@@ -62,16 +62,16 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     <div class="hero__scrim"></div>
 
     <div class="hero__body">
-      <p class="tagline">Samarqand · Xalil Sulton 150 · 07:00 dan</p>
+      <p class="tagline" data-reveal>Samarqand · Xalil Sulton 150 · 07:00 dan</p>
       <h1>
-        <span>Qurilish</span>
-        <span>mollari</span>
+        <span data-rise>Qurilish</span>
+        <span data-rise style="--reveal-delay:90ms">mollari</span>
       </h1>
-      <p class="hero__lead">
+      <p class="hero__lead" data-reveal style="--reveal-delay:160ms">
         5000+ mahsulot turi. To'g'ridan-to'g'ri ishlab chiqaruvchidan —
         oraliq ustama yo'q, tovar sertifikatlangan.
       </p>
-      <div class="hero__cta">
+      <div class="hero__cta" data-reveal style="--reveal-delay:240ms">
         <a class="btn" href={site.phoneHref} data-magnetic>Qo'ng'iroq qilish <Icon name="arrow" size={18} /></a>
         <a class="btn btn--ghost" href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
           <Icon name="telegram" size={18} /> Telegram
@@ -95,7 +95,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
         to'g'ridan-to'g'ri olinadi — oraliq ustama yo'q.
       </p>
     </div>
-    <ol class="manifest__grid">
+    <ol class="manifest__grid" data-stagger>
       {
         advantages.map((a, i) => (
           <li data-reveal style={`--reveal-delay:${i * 90}ms`}>
@@ -113,7 +113,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
   <!-- ============ STATISTIKA ============ -->
   <section class="stats panel" aria-label="Raqamlar">
-    <ul>
+    <ul data-stagger>
       {
         stats.map((s) => (
           <li data-reveal>
@@ -133,7 +133,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
           <div class="shot__img" data-parallax>
             <Image src={p} alt="Diyor Stroy do'koni" widths={[720, 1400]} sizes="100vw" loading="lazy" />
           </div>
-          <figcaption>
+          <figcaption data-reveal>
             <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
             {['Rastalar va ombor', 'Santexnika bo\'limi', 'Quruq qorishmalar', 'Asbob-uskuna'][i]}
           </figcaption>
@@ -145,8 +145,8 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   <!-- ============ BRENDLAR ============ -->
   <section class="brands" id="brendlar">
     <div class="brands__head">
-      <h2>Rasmiy brendlar</h2>
-      <p>Faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulot.</p>
+      <h2 data-rise>Rasmiy brendlar</h2>
+      <p data-reveal style="--reveal-delay:120ms">Faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulot.</p>
     </div>
     {
       [0, 1].map((row) => (
@@ -165,47 +165,50 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
   <!-- ============ ULGURJI ============ -->
   <section class="split" id="ulgurji">
-    <div class="split__left">
-      <p class="tagline tagline--dark">Ulgurji va brigadalar</p>
-      <h2>Ertalab<br />07:00 dan ochiq</h2>
-      <p class="split__lead">
+    <div class="split__left" data-stagger>
+      <p class="tagline tagline--dark" data-reveal>Ulgurji va brigadalar</p>
+      <h2 data-rise>Ertalab<br />07:00 dan ochiq</h2>
+      <p class="split__lead" data-reveal>
         Brigada ish boshlashidan oldin material olib ulgursin. Katta hajmdagi
         buyurtmalarga alohida chegirma narx.
       </p>
-      <ul class="split__services">
+      <ul class="split__services" data-reveal>
         {services.map((s) => <li><b>{s.title}</b> — {s.text}</li>)}
       </ul>
     </div>
 
-    <div class="split__contact">
-      <h3>Chegirma narx so'rash</h3>
-      <p class="split__contact-lead">
+    <div class="split__contact" data-stagger>
+      <h3 data-reveal>Chegirma narx so'rash</h3>
+      <p class="split__contact-lead" data-reveal>
         Kerakli materialni ayting — narxini va bor-yo'qligini shu yerda aytamiz.
       </p>
-      <a class="split__phone tnum" href={site.phoneHref} data-magnetic="0.15">
+      <a class="split__phone tnum" data-reveal href={site.phoneHref} data-magnetic="0.15">
         {site.phone}
         <Icon name="arrow" size={26} />
       </a>
-      <a class="btn btn--tg" href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
+      <a class="btn btn--tg" data-reveal href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
         <Icon name="telegram" size={18} /> Telegramda yozish
       </a>
-      <p class="split__contact-note tnum">{site.hours} · {site.hoursNote}</p>
+      <p class="split__contact-note tnum" data-reveal>{site.hours} · {site.hoursNote}</p>
     </div>
   </section>
 
   <!-- ============ MANZIL ============ -->
-  <section class="map" id="manzil">
+  <section class="map" id="manzil" data-map>
     <iframe src={mapSrc} title="Diyor Stroy xaritada" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <button class="map__shield" type="button" data-map-unlock>
+      <span>Xaritani ochish uchun bosing</span>
+    </button>
     <span class="map__pin" aria-hidden="true"></span>
-    <div class="map__card">
-      <h2>Qayerdamiz</h2>
-      <ul>
+    <div class="map__card" data-stagger>
+      <h2 data-rise>Qayerdamiz</h2>
+      <ul data-reveal>
         <li><Icon name="pin" size={18} /><span>{site.address}</span></li>
         <li><Icon name="clock" size={18} /><span class="tnum">{site.hours} · {site.hoursNote}</span></li>
         <li><Icon name="phone" size={18} /><a href={site.phoneHref} class="tnum">{site.phone}</a></li>
         <li><Icon name="tag" size={18} /><span>{site.payments.join(' · ')}</span></li>
       </ul>
-      <div class="map__links">
+      <div class="map__links" data-reveal>
         <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Google</a>
         <a class="btn btn--ghost" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Yandex</a>
       </div>
@@ -214,11 +217,11 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
   <!-- ============ SAVOLLAR ============ -->
   <section class="faq" id="savollar">
-    <h2>Savollar</h2>
-    <ul>
+    <h2 data-rise>Savollar</h2>
+    <ul data-stagger>
       {
         faq.map((f) => (
-          <li>
+          <li data-reveal>
             <details>
               <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
               <p>{f.a}</p>
@@ -240,30 +243,13 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   <script>
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Yengil parallaks — faqat harakat ruxsat etilganda.
-    if (!reduce) {
-      const layers = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
-      let ticking = false;
-      const update = () => {
-        layers.forEach((el) => {
-          const r = el.getBoundingClientRect();
-          if (r.bottom < -200 || r.top > window.innerHeight + 200) return;
-          const progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
-          el.style.setProperty('--shift', `${(progress * -8).toFixed(2)}%`);
-        });
-        ticking = false;
-      };
-      addEventListener(
-        'scroll',
-        () => {
-          if (!ticking) {
-            ticking = true;
-            requestAnimationFrame(update);
-          }
-        },
-        { passive: true },
-      );
-      update();
+    // Xarita: bosilgandan keyin interaktiv, sichqoncha chiqsa yana bloklanadi.
+    const map = document.querySelector<HTMLElement>('[data-map]');
+    if (map) {
+      map.querySelector('[data-map-unlock]')?.addEventListener('click', () => {
+        map.classList.add('is-live');
+      });
+      map.addEventListener('pointerleave', () => map.classList.remove('is-live'));
     }
 
     // Raqamlar ko'rinishga kirganda sanaladi.
@@ -379,7 +365,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     height: 100%;
     object-fit: cover;
     object-position: 78% 62%;
-    transform: translateY(var(--shift, 0)) scale(1.04);
+    transform: scale(1.04);
     filter: contrast(1.06) brightness(0.94);
     transition: transform 0.2s linear;
   }
@@ -534,7 +520,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: translateY(var(--shift, 0));
     filter: contrast(1.08) saturate(0.62) brightness(0.72);
     transition: transform 0.2s linear;
   }
@@ -676,6 +661,38 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
   /* ================= XARITA ================= */
   .map { position: relative; height: min(88svh, 720px); overflow: hidden; }
+
+  /* Iframe skrollni "yutib" yubormasligi uchun bosilmaguncha o'chirilgan. */
+  .map iframe { pointer-events: none; }
+  .map.is-live iframe { pointer-events: auto; }
+
+  .map__shield {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: end center;
+    padding-bottom: 28px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .map__shield span {
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: rgb(10 10 11 / 0.72);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-fg-300);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out-expo);
+  }
+  .map__shield:hover span,
+  .map__shield:focus-visible span { opacity: 1; }
+  .map.is-live .map__shield { display: none; }
+
   .map iframe {
     width: 100%;
     height: 100%;

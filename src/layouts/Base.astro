@@ -48,27 +48,119 @@ const jsonLd = {
     <link rel="canonical" href={site.domain} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class={bodyClass}>
+    <span class="scrollbar-progress" data-scroll-progress aria-hidden="true"></span>
+
     <slot />
 
     <script>
-      const items = document.querySelectorAll('[data-reveal]');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && items.length) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                io.unobserve(entry.target);
-              }
-            });
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
-        );
-        items.forEach((el) => io.observe(el));
+      // ================================================================
+      // Skroll harakati — butun sayt uchun yagona tizim (GSAP ScrollTrigger).
+      //   [data-reveal]   — pastdan chiqib ko'rinadi
+      //   [data-rise]     — sarlavha maskadan ochiladi
+      //   [data-stagger]  — ichidagi [data-reveal] lar navbat bilan
+      //   [data-parallax] — skroll bilan sekin suriladi
+      // ================================================================
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduce) {
+        document.querySelectorAll<HTMLElement>('[data-reveal], [data-rise]').forEach((el) => {
+          el.style.opacity = '1';
+          el.style.clipPath = 'none';
+        });
       } else {
-        items.forEach((el) => el.classList.add('is-in'));
+        const delayOf = (el: HTMLElement) =>
+          (parseFloat(getComputedStyle(el).getPropertyValue('--reveal-delay')) || 0) / 1000;
+
+        // Guruh ichidagilar navbat bilan chiqadi.
+        document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
+          const kids = Array.from(group.querySelectorAll<HTMLElement>('[data-reveal]'));
+          if (!kids.length) return;
+          kids.forEach((k) => k.setAttribute('data-in-group', ''));
+
+          gsap.fromTo(
+            kids,
+            { y: 34, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: 'expo.out',
+              stagger: 0.09,
+              scrollTrigger: { trigger: group, start: 'top 85%', once: true },
+            },
+          );
+        });
+
+        // Yolg'iz elementlar.
+        document
+          .querySelectorAll<HTMLElement>('[data-reveal]:not([data-in-group])')
+          .forEach((el) => {
+            gsap.fromTo(
+              el,
+              { y: 34, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.9,
+                delay: delayOf(el),
+                ease: 'expo.out',
+                scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+              },
+            );
+          });
+
+        // Sarlavhalar: maska pastdan ochiladi.
+        document.querySelectorAll<HTMLElement>('[data-rise]').forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: '18%', opacity: 0, clipPath: 'inset(0 0 100% 0)' },
+            {
+              y: '0%',
+              opacity: 1,
+              clipPath: 'inset(0 0 -12% 0)',
+              duration: 1.1,
+              ease: 'expo.out',
+              scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+            },
+          );
+        });
+
+        // Parallaks qatlamlar — skroll bilan bog'langan (scrub).
+        document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
+          const strength = Number(el.dataset.parallax) || 8;
+          gsap.fromTo(
+            el,
+            { yPercent: -strength / 2 },
+            {
+              yPercent: strength / 2,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el.parentElement || el,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.6,
+              },
+            },
+          );
+        });
+
+        // Yuqoridagi skroll chizig'i.
+        const bar = document.querySelector<HTMLElement>('[data-scroll-progress]');
+        if (bar) {
+          gsap.to(bar, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: { start: 0, end: 'max', scrub: 0.25 },
+          });
+        }
       }
     </script>
 

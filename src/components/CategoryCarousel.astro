@@ -11,22 +11,21 @@ interface Props {
   duration?: number;
   fastDuration?: number;
 }
-const { photos, duration = 5000, fastDuration = 400 } = Astro.props;
+const { photos, duration = 3200, fastDuration = 320 } = Astro.props;
 
 const featured = categories.filter((c) => c.featured);
-const rest = categories.filter((c) => !c.featured);
 const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] }));
 ---
 
 <section class="cats" id="toifalar">
-  <div class="cats__head">
-    <h2 data-reveal>Toifalar</h2>
+  <div class="cats__head" data-stagger>
+    <h2 data-rise>Toifalar</h2>
     <p data-reveal style="--reveal-delay:100ms">
       5000+ mahsulot turi. Kerakli toifani ayting — aniq narxni qo'ng'iroqda aytamiz.
     </p>
   </div>
 
-  <div class="cats__slider" data-cats data-duration={duration} data-fast={fastDuration}>
+  <div class="cats__slider" data-reveal data-cats data-duration={duration} data-fast={fastDuration}>
     <div class="cats__stage">
       {
         slides.map((c, i) => (
@@ -64,17 +63,6 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
       Narxni so'rash <Icon name="arrow" size={18} />
     </a>
   </div>
-
-  <ul class="cats__more">
-    {
-      rest.map((c) => (
-        <li>
-          <b>{c.title}</b>
-          <span>{c.items}</span>
-        </li>
-      ))
-    }
-  </ul>
 </section>
 
 <script>
@@ -208,6 +196,7 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
     overflow: hidden;
     background: var(--color-bg-800);
     aspect-ratio: 16 / 9;
+    max-height: 50svh;
   }
 
   .cats__slide {
@@ -216,8 +205,8 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
     opacity: 0;
     visibility: hidden;
     transition:
-      opacity 0.6s var(--ease-out-expo),
-      visibility 0.6s;
+      opacity 0.45s var(--ease-out-expo),
+      visibility 0.45s;
   }
   .cats__slide[data-active] { opacity: 1; visibility: visible; }
 
@@ -227,7 +216,7 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
     object-fit: cover;
     transform: scale(1.04);
     filter: brightness(0.62) saturate(0.85);
-    transition: transform 6s linear;
+    transition: transform 4s linear;
   }
   .cats__slide[data-active] img { transform: scale(1.1); }
 
@@ -319,33 +308,8 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
     color: var(--color-fg-500);
   }
 
-  /* ---- qolgan toifalar ---- */
-  .cats__more {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 0;
-    margin-top: clamp(36px, 5vh, 60px);
-    border-top: 1px solid var(--line);
-  }
-  .cats__more li {
-    padding: 22px 24px 22px 0;
-    border-bottom: 1px solid var(--line-2);
-  }
-  .cats__more b {
-    display: block;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--color-fg-100);
-  }
-  .cats__more span {
-    display: block;
-    margin-top: 6px;
-    font-size: 14px;
-    color: var(--color-fg-500);
-  }
-
   @media (max-width: 900px) {
-    .cats__stage { aspect-ratio: 4 / 5; border-radius: 18px; }
+    .cats__stage { aspect-ratio: 4 / 3; max-height: 46svh; border-radius: 18px; }
     .cats__ask { justify-self: stretch; justify-content: center; }
     .cats__slide figcaption { padding-bottom: 28px; }
     .cats__btns { grid-template-columns: repeat(2, 1fr); }
