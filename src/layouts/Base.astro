@@ -1,15 +1,13 @@
 ---
 import '../styles/global.css';
-import VariantSwitcher from '../components/VariantSwitcher.astro';
 import { site } from '../data/site.js';
 
 interface Props {
   title: string;
   description: string;
-  variant: string;
   bodyClass?: string;
 }
-const { title, description, variant, bodyClass = '' } = Astro.props;
+const { title, description, bodyClass = '' } = Astro.props;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -39,19 +37,20 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#0A0A0B" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta property="og:url" content={site.domain} />
+    <link rel="canonical" href={site.domain} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class={`variant-${variant} ${bodyClass}`}>
+  <body class={bodyClass}>
     <slot />
-    <VariantSwitcher current={variant} />
 
     <script>
       const items = document.querySelectorAll('[data-reveal]');

@@ -109,9 +109,3 @@ export const faq = [
     a: "Naqd pul, plastik karta va bank o'tkazmasi.",
   },
 ];
-
-export const variants = [
-  { id: 'v1', href: '/v1', name: 'Editorial', note: 'Foto-hero, klassik referens ritmi' },
-  { id: 'v2', href: '/v2', name: 'Katalog', note: 'Yopishgan kontakt-panel, jadval ritmi' },
-  { id: 'v3', href: '/v3', name: 'Kinematik', note: "To'liq ekranli panellar, gorizontal harakat" },
-];
