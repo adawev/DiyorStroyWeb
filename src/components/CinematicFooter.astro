@@ -44,12 +44,12 @@ const marquee = [
 
       <div class="cf__links" data-cf-links>
         <div class="cf__row">
-          <a class="cf-pill cf-pill--lg tnum" href={site.phoneHref} data-magnetic>
+          <a class="pill pill--lg tnum" href={site.phoneHref} data-magnetic>
             <Icon name="phone" size={20} />
             {site.phone}
           </a>
           <a
-            class="cf-pill cf-pill--lg"
+            class="pill pill--lg"
             href={site.telegramChat}
             target="_blank"
             rel="noopener"
@@ -61,13 +61,13 @@ const marquee = [
         </div>
 
         <div class="cf__row cf__row--sm">
-          <a class="cf-pill" href={site.instagram} target="_blank" rel="noopener" data-magnetic>
+          <a class="pill" href={site.instagram} target="_blank" rel="noopener" data-magnetic>
             <Icon name="instagram" size={16} /> Instagram
           </a>
-          <a class="cf-pill" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic>
+          <a class="pill" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic>
             <Icon name="route" size={16} /> Google xarita
           </a>
-          <a class="cf-pill" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic>
+          <a class="pill" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic>
             <Icon name="route" size={16} /> Yandex xarita
           </a>
         </div>
@@ -77,12 +77,12 @@ const marquee = [
     <div class="cf__bottom">
       <p class="cf__copy">© {year} Diyor Stroy · {site.address}</p>
 
-      <div class="cf-pill cf-pill--static tnum">
+      <div class="pill pill--static tnum">
         <Icon name="clock" size={15} />
         {site.hours} · {site.hoursNote}
       </div>
 
-      <button class="cf-pill cf-pill--icon" type="button" data-cf-top data-magnetic aria-label="Yuqoriga">
+      <button class="pill pill--icon" type="button" data-cf-top data-magnetic aria-label="Yuqoriga">
         <Icon name="arrow-down" size={18} />
       </button>
     </div>
@@ -129,20 +129,6 @@ const marquee = [
       },
     );
 
-    // Magnit tugmalar — faqat sichqoncha bor qurilmalarda.
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
-        el.addEventListener('pointermove', (e) => {
-          const r = el.getBoundingClientRect();
-          const x = e.clientX - r.left - r.width / 2;
-          const y = e.clientY - r.top - r.height / 2;
-          gsap.to(el, { x: x * 0.3, y: y * 0.35, scale: 1.04, duration: 0.4, ease: 'power2.out' });
-        });
-        el.addEventListener('pointerleave', () => {
-          gsap.to(el, { x: 0, y: 0, scale: 1, duration: 1.1, ease: 'elastic.out(1, 0.35)' });
-        });
-      });
-    }
   } else {
     document.querySelectorAll<HTMLElement>('[data-cf-giant], [data-cf-title], [data-cf-links]').forEach((el) => {
       el.style.opacity = '1';
@@ -295,51 +281,15 @@ const marquee = [
   .cf__links { display: grid; gap: 14px; justify-items: center; width: 100%; }
   .cf__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
-  /* ---- shisha "pill" ---- */
-  .cf-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 13px 22px;
-    border-radius: 999px;
-    border: 1px solid rgb(255 255 255 / 0.1);
-    background: linear-gradient(145deg, rgb(255 255 255 / 0.05) 0%, rgb(255 255 255 / 0.015) 100%);
-    box-shadow:
-      0 10px 30px -10px rgb(0 0 0 / 0.6),
-      inset 0 1px 1px rgb(255 255 255 / 0.09);
-    backdrop-filter: blur(14px);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-fg-300);
-    transition:
-      background 0.4s var(--ease-out-expo),
-      border-color 0.4s var(--ease-out-expo),
-      color 0.4s var(--ease-out-expo);
-  }
-  .cf-pill :global(svg) { color: var(--color-accent); flex: none; }
-  a.cf-pill:hover,
-  button.cf-pill:hover {
-    color: var(--color-fg-100);
-    border-color: rgb(255 255 255 / 0.24);
-    background: linear-gradient(145deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0.03) 100%);
-  }
-
-  .cf-pill--lg {
-    padding: 18px 32px;
-    font-size: clamp(14px, 1.3vw, 17px);
-    font-weight: 700;
-    color: var(--color-fg-100);
-  }
-  .cf-pill--static { cursor: default; }
-  .cf-pill--icon { padding: 0; width: 48px; height: 48px; justify-content: center; }
-  .cf-pill--icon :global(svg) {
+  /* ---- pastki qator ---- */
+  /* Yuqoriga tugmasi: strelka teskari aylantiriladi. */
+  .cf :global(.pill--icon svg) {
     color: var(--color-fg-300);
     transform: rotate(180deg);
     transition: transform 0.3s var(--ease-out-expo);
   }
-  .cf-pill--icon:hover :global(svg) { transform: rotate(180deg) translateY(-6px); }
+  .cf :global(.pill--icon:hover svg) { transform: rotate(180deg) translateY(-6px); }
 
-  /* ---- pastki qator ---- */
   .cf__bottom {
     position: relative;
     z-index: 3;
@@ -356,8 +306,8 @@ const marquee = [
     letter-spacing: 0.04em;
     color: var(--color-fg-500);
   }
-  .cf__bottom .cf-pill--static { order: 1; font-size: 12px; }
-  .cf__bottom .cf-pill--icon { order: 3; }
+  .cf__bottom .pill--static { order: 1; font-size: 12px; }
+  .cf__bottom .pill--icon { order: 3; }
 
   @keyframes cf-breathe {
     0% { transform: translate(-50%, -50%) scale(1); opacity: 0.65; }
@@ -399,13 +349,21 @@ const marquee = [
       transform: none;
       text-align: center;
     }
-    .cf__bottom {
+    /* Yuqoriga tugmasi: strelka teskari aylantiriladi. */
+  .cf :global(.pill--icon svg) {
+    color: var(--color-fg-300);
+    transform: rotate(180deg);
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .cf :global(.pill--icon:hover svg) { transform: rotate(180deg) translateY(-6px); }
+
+  .cf__bottom {
       justify-content: center;
       text-align: center;
       padding: clamp(48px, 9vh, 90px) 20px 0;
     }
     .cf__copy { order: 3; flex: 1 0 100%; }
-    .cf__bottom .cf-pill--icon { order: 2; }
+    .cf__bottom .pill--icon { order: 2; }
   }
 
   @media (prefers-reduced-motion: reduce) {

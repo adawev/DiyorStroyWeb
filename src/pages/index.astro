@@ -5,8 +5,9 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import OpenStatus from '../components/OpenStatus.astro';
+import CategoryCarousel from '../components/CategoryCarousel.astro';
 import CinematicFooter from '../components/CinematicFooter.astro';
-import { site, stats, categories, advantages, services, brands, faq } from '../data/site.js';
+import { site, stats, advantages, services, brands, faq } from '../data/site.js';
 
 import logoWhite from '../../images/logoWhite.png';
 import heroArt from '../../images/hero/hero-ai.png';
@@ -24,7 +25,6 @@ const brandMods = import.meta.glob<ImageMetadata>('../../images/brands-mono/*.pn
   import: 'default',
 });
 const brandLogos = brands.map((b) => ({ ...b, img: brandMods[`../../images/brands-mono/${b.file.replace(/\.\w+$/, '.png')}`] }));
-const catCards = categories.map((c, i) => ({ ...c, img: photos[i % photos.length] }));
 const galleryPanels = photos.slice(0, 4);
 const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coords.lng - 0.01}%2C${site.coords.lat - 0.005}%2C${site.coords.lng + 0.01}%2C${site.coords.lat + 0.005}&layer=mapnik`;
 ---
@@ -72,8 +72,8 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
         oraliq ustama yo'q, tovar sertifikatlangan.
       </p>
       <div class="hero__cta">
-        <a class="btn" href={site.phoneHref}>Qo'ng'iroq qilish <Icon name="arrow" size={18} /></a>
-        <a class="btn btn--ghost" href={site.telegramChat} target="_blank" rel="noopener">
+        <a class="btn" href={site.phoneHref} data-magnetic>Qo'ng'iroq qilish <Icon name="arrow" size={18} /></a>
+        <a class="btn btn--ghost" href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
           <Icon name="telegram" size={18} /> Telegram
         </a>
       </div>
@@ -109,29 +109,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   </section>
 
   <!-- ============ TOIFALAR ============ -->
-  <section class="rail" id="toifalar">
-    <div class="rail__head">
-      <h2>Toifalar</h2>
-      <p>O'ngga suring. Kerakli toifani ayting — aniq narxni qo'ng'iroqda aytamiz.</p>
-    </div>
-    <ul class="rail__track" data-drag>
-      {
-        catCards.map((c, i) => (
-          <li>
-            <a href={site.phoneHref}>
-              <Image src={c.img} alt="" widths={[400, 800]} sizes="320px" loading="lazy" />
-              <span class="rail__n tnum">{String(i + 1).padStart(2, '0')}</span>
-              <div class="rail__meta">
-                <h3>{c.title}</h3>
-                <p>{c.items}</p>
-                <span class="rail__go">Narxni so'rash <Icon name="arrow" size={15} /></span>
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <CategoryCarousel photos={photos} />
 
   <!-- ============ STATISTIKA ============ -->
   <section class="stats panel" aria-label="Raqamlar">
@@ -204,11 +182,11 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
       <p class="split__contact-lead">
         Kerakli materialni ayting — narxini va bor-yo'qligini shu yerda aytamiz.
       </p>
-      <a class="split__phone tnum" href={site.phoneHref}>
+      <a class="split__phone tnum" href={site.phoneHref} data-magnetic="0.15">
         {site.phone}
         <Icon name="arrow" size={26} />
       </a>
-      <a class="btn btn--tg" href={site.telegramChat} target="_blank" rel="noopener">
+      <a class="btn btn--tg" href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
         <Icon name="telegram" size={18} /> Telegramda yozish
       </a>
       <p class="split__contact-note tnum">{site.hours} · {site.hoursNote}</p>
@@ -228,8 +206,8 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
         <li><Icon name="tag" size={18} /><span>{site.payments.join(' · ')}</span></li>
       </ul>
       <div class="map__links">
-        <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener"><Icon name="route" size={16} /> Google</a>
-        <a class="btn btn--ghost" href={site.yandexMaps} target="_blank" rel="noopener"><Icon name="route" size={16} /> Yandex</a>
+        <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Google</a>
+        <a class="btn btn--ghost" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Yandex</a>
       </div>
     </div>
   </section>
@@ -318,29 +296,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
       nums.forEach((n) => io.observe(n));
     }
 
-    // Toifalar relsi: sichqoncha bilan tortib surish.
-    const track = document.querySelector<HTMLElement>('[data-drag]');
-    if (track) {
-      let down = false;
-      let startX = 0;
-      let startLeft = 0;
-      track.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'touch') return;
-        down = true;
-        startX = e.clientX;
-        startLeft = track.scrollLeft;
-        track.classList.add('is-drag');
-      });
-      addEventListener('pointerup', () => {
-        down = false;
-        track.classList.remove('is-drag');
-      });
-      track.addEventListener('pointermove', (e) => {
-        if (!down) return;
-        e.preventDefault();
-        track.scrollLeft = startLeft - (e.clientX - startX);
-      });
-    }
   </script>
 </Base>
 
@@ -371,31 +326,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     color: var(--color-fg-500);
   }
   .tagline--dark { color: rgb(255 255 255 / 0.72); }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 54px;
-    padding: 15px 26px;
-    background: var(--color-accent);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-radius: 999px;
-    transition: background 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
-  }
-  .btn :global(svg) { transition: transform 0.25s var(--ease-out-expo); }
-  .btn:hover { background: var(--color-accent-hot); }
-  .btn:hover :global(svg) { transform: translateX(4px); }
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-fg-100);
-    border: 1px solid var(--line);
-  }
-  .btn--ghost:hover { background: rgb(255 255 255 / 0.06); border-color: var(--color-fg-100); }
 
   /* ================= TOPBAR ================= */
   .topbar {
@@ -561,94 +491,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     color: var(--color-fg-100);
   }
   .manifest__grid p { margin-top: 10px; font-size: 15px; color: var(--color-fg-300); }
-
-  /* ================= TOIFALAR RELSI ================= */
-  .rail { padding: clamp(56px, 9vh, 104px) 0; }
-  .rail__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 0 clamp(20px, 5vw, 88px) 36px;
-  }
-  .rail__head h2 {
-    font-family: var(--display);
-    font-size: clamp(28px, 4vw, 54px);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    color: var(--color-fg-100);
-  }
-  .rail__head p { font-size: 15px; color: var(--color-fg-500); }
-  .rail__track {
-    display: flex;
-    gap: 14px;
-    overflow-x: auto;
-    padding: 4px clamp(20px, 5vw, 88px) 20px;
-    scroll-snap-type: x mandatory;
-    cursor: grab;
-  }
-  .rail__track.is-drag { cursor: grabbing; scroll-snap-type: none; }
-  .rail__track li { flex: 0 0 auto; width: min(78vw, 320px); scroll-snap-align: start; }
-  .rail__track a {
-    position: relative;
-    display: block;
-    height: 420px;
-    overflow: hidden;
-    border-radius: 20px;
-    border: 1px solid var(--line-2);
-    background: var(--color-bg-800);
-  }
-  .rail__track img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: contrast(1.1) saturate(0.55) brightness(0.5);
-    transition: transform 0.6s var(--ease-out-expo), filter 0.4s var(--ease-out-expo);
-  }
-  .rail__track a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgb(10 10 11 / 0.95) 12%, rgb(10 10 11 / 0.2) 62%);
-  }
-  .rail__track a:hover img { transform: scale(1.06); filter: contrast(1.05) saturate(0.8) brightness(0.62); }
-  .rail__n {
-    position: absolute;
-    z-index: 2;
-    top: 18px;
-    left: 20px;
-    font-family: var(--display);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-accent-hot);
-  }
-  .rail__meta {
-    position: absolute;
-    z-index: 2;
-    inset: auto 20px 20px;
-  }
-  .rail__meta h3 {
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--color-fg-100);
-  }
-  .rail__meta p { margin-top: 8px; font-size: 14px; color: var(--color-fg-300); }
-  .rail__go {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 14px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-accent-hot);
-  }
 
   /* ================= STATISTIKA ================= */
   .stats {

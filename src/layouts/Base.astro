@@ -71,5 +71,35 @@ const jsonLd = {
         items.forEach((el) => el.classList.add('is-in'));
       }
     </script>
+
+    <script>
+      // Magnit tugmalar — [data-magnetic] bo'lgan har qanday element uchun.
+      // Butun saytda bitta xatti-harakat: footer, hero, karusel, xarita.
+      import { gsap } from 'gsap';
+
+      const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (fine && !reduce) {
+        document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+          const pull = Number(el.dataset.magnetic) || 0.3;
+
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            gsap.to(el, {
+              x: (e.clientX - r.left - r.width / 2) * pull,
+              y: (e.clientY - r.top - r.height / 2) * (pull + 0.05),
+              scale: 1.04,
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          });
+
+          el.addEventListener('pointerleave', () => {
+            gsap.to(el, { x: 0, y: 0, scale: 1, duration: 1.1, ease: 'elastic.out(1, 0.35)' });
+          });
+        });
+      }
+    </script>
   </body>
 </html>

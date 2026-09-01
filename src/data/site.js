@@ -29,12 +29,13 @@ export const stats = [
   { value: '07:00', label: 'dan ochiq' },
 ];
 
+// `featured: true` — Toifalar karuselida katta ko'rsatiladiganlari.
 export const categories = [
-  { title: 'Sement va quruq qorishmalar', items: 'Gips, shpaklyovka, qorishmalar' },
-  { title: 'Gipsokarton va profil', items: 'Knauf listlar, metall profillar' },
-  { title: "Bo'yoq va lak", items: "Gruntovka, emal, fasad bo'yoqlari" },
-  { title: 'Santexnika', items: 'Quvurlar, kranlar, fitinglar' },
-  { title: 'Elektr mollari', items: 'Kabel, rozetka, avtomatlar (Viko)' },
+  { title: 'Sement va quruq qorishmalar', items: 'Gips, shpaklyovka, qorishmalar', featured: true },
+  { title: 'Gipsokarton va profil', items: 'Knauf listlar, metall profillar', featured: true },
+  { title: "Bo'yoq va lak", items: "Gruntovka, emal, fasad bo'yoqlari", featured: true },
+  { title: 'Santexnika', items: 'Quvurlar, kranlar, fitinglar', featured: true },
+  { title: 'Elektr mollari', items: 'Kabel, rozetka, avtomatlar (Viko)', featured: true },
   { title: 'Asbob-uskuna', items: 'Tolsen qo’l va elektr asboblari' },
   { title: 'Kafel va keramogranit', items: "Yopishtiruvchi aralashmalar, zatirka" },
   { title: 'Izolyatsiya', items: 'Issiqlik va gidroizolyatsiya materiallari' },

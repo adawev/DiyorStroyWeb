@@ -1,0 +1,359 @@
+---
+// Toifalar karuseli — "progressive carousel" naqshining Astro porti.
+// Har slayd `duration` davomida ko'rinadi, tugmadagi progress chizig'i to'ladi.
+// Tugma bosilsa joriy progress `fastDuration` ichida tez to'lib, keyingisiga o'tadi.
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { site, categories } from '../data/site.js';
+
+interface Props {
+  photos: ImageMetadata[];
+  duration?: number;
+  fastDuration?: number;
+}
+const { photos, duration = 5000, fastDuration = 400 } = Astro.props;
+
+const featured = categories.filter((c) => c.featured);
+const rest = categories.filter((c) => !c.featured);
+const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] }));
+---
+
+<section class="cats" id="toifalar">
+  <div class="cats__head">
+    <h2 data-reveal>Toifalar</h2>
+    <p data-reveal style="--reveal-delay:100ms">
+      5000+ mahsulot turi. Kerakli toifani ayting — aniq narxni qo'ng'iroqda aytamiz.
+    </p>
+  </div>
+
+  <div class="cats__slider" data-cats data-duration={duration} data-fast={fastDuration}>
+    <div class="cats__stage">
+      {
+        slides.map((c, i) => (
+          <figure class="cats__slide" data-slide={i} data-active={i === 0 ? '' : undefined}>
+            <Image src={c.img} alt={c.title} widths={[720, 1200, 1800]} sizes="(max-width: 900px) 100vw, 68vw" loading="lazy" />
+            <figcaption>
+              <span class="cats__n tnum">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{c.title}</h3>
+              <p>{c.items}</p>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="cats__btns" role="tablist" aria-label="Toifalar">
+      {
+        slides.map((c, i) => (
+          <button
+            class="pill cats__btn"
+            type="button"
+            role="tab"
+            data-btn={i}
+            aria-selected={i === 0 ? 'true' : 'false'}
+          >
+            <span class="cats__bar" data-bar aria-hidden="true" />
+            <span class="cats__btn-title">{c.title}</span>
+            <span class="cats__btn-desc">{c.items}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <a class="btn cats__ask" href={site.phoneHref} data-magnetic>
+      Narxni so'rash <Icon name="arrow" size={18} />
+    </a>
+  </div>
+
+  <ul class="cats__more">
+    {
+      rest.map((c) => (
+        <li>
+          <b>{c.title}</b>
+          <span>{c.items}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cats]');
+
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
+    const buttons = Array.from(root.querySelectorAll<HTMLElement>('[data-btn]'));
+    const bars = buttons.map((b) => b.querySelector<HTMLElement>('[data-bar]'));
+    const duration = Number(root.dataset.duration) || 5000;
+    const fastDuration = Number(root.dataset.fast) || 400;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let active = 0;
+    let progress = 0;
+    let isFast = false;
+    let target: number | null = null;
+    let startTime = performance.now();
+    let frame = 0;
+    let running = false;
+
+    const render = () => {
+      slides.forEach((s, i) => s.toggleAttribute('data-active', i === active));
+      buttons.forEach((b, i) => b.setAttribute('aria-selected', String(i === active)));
+      bars.forEach((bar, i) => {
+        if (bar) bar.style.width = i === active ? `${progress}%` : '0%';
+      });
+    };
+
+    const animate = (now: number) => {
+      const currentDuration = isFast ? fastDuration : duration;
+      const fraction = (now - startTime) / currentDuration;
+
+      if (fraction <= 1) {
+        progress = isFast ? progress + (100 - progress) * fraction : fraction * 100;
+        render();
+        frame = requestAnimationFrame(animate);
+        return;
+      }
+
+      if (isFast) {
+        isFast = false;
+        if (target !== null) {
+          active = target;
+          target = null;
+        }
+      } else {
+        active = (active + 1) % slides.length;
+      }
+      progress = 0;
+      startTime = performance.now();
+      render();
+      frame = requestAnimationFrame(animate);
+    };
+
+    const start = () => {
+      if (running || reduce) return;
+      running = true;
+      startTime = performance.now();
+      frame = requestAnimationFrame(animate);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(frame);
+    };
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        if (i === active) return;
+
+        if (reduce || !running) {
+          active = i;
+          progress = 0;
+          render();
+          return;
+        }
+
+        // Joriy progressni ushlab qolib, uni tez to'ldiramiz.
+        progress = ((performance.now() - startTime) / duration) * 100;
+        target = i;
+        isFast = true;
+        startTime = performance.now();
+      });
+    });
+
+    render();
+
+    // Ko'rinmayotganda rAF ishlamaydi — batareya va CPU tejaladi.
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())),
+      { threshold: 0.25 },
+    );
+    io.observe(root);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else if (root.getBoundingClientRect().top < window.innerHeight) start();
+    });
+  }
+</script>
+
+<style>
+  .cats {
+    padding: clamp(64px, 10vh, 120px) clamp(20px, 5vw, 88px);
+  }
+
+  .cats__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: clamp(28px, 4vh, 44px);
+  }
+  .cats__head h2 {
+    font-family: var(--display);
+    font-size: clamp(30px, 4.6vw, 64px);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: var(--color-fg-100);
+  }
+  .cats__head p { max-width: 42ch; font-size: 15px; color: var(--color-fg-500); }
+
+  /* ---- sahna ---- */
+  .cats__stage {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: var(--color-bg-800);
+    aspect-ratio: 16 / 9;
+  }
+
+  .cats__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.6s var(--ease-out-expo),
+      visibility 0.6s;
+  }
+  .cats__slide[data-active] { opacity: 1; visibility: visible; }
+
+  .cats__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04);
+    filter: brightness(0.62) saturate(0.85);
+    transition: transform 6s linear;
+  }
+  .cats__slide[data-active] img { transform: scale(1.1); }
+
+  .cats__slide figcaption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: clamp(24px, 4vw, 48px);
+    background: linear-gradient(to top, rgb(10 10 11 / 0.92) 10%, transparent 90%);
+  }
+  .cats__n {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+  .cats__slide h3 {
+    margin-top: 10px;
+    font-family: var(--display);
+    font-size: clamp(22px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: var(--color-fg-100);
+    text-wrap: balance;
+  }
+  .cats__slide p {
+    margin-top: 10px;
+    max-width: 44ch;
+    font-size: clamp(14px, 1.2vw, 17px);
+    color: var(--color-fg-300);
+  }
+
+  .cats__ask { margin-top: 18px; justify-self: end; }
+
+  /* ---- tugmalar ---- */
+  .cats__slider { display: grid; justify-items: stretch; }
+
+  .cats__btns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .cats__btn {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 16px;
+  }
+  .cats__btn[aria-selected='false'] { opacity: 0.55; }
+  .cats__btn[aria-selected='true'] {
+    opacity: 1;
+    border-color: rgb(255 255 255 / 0.2);
+  }
+
+  /* Progress chizig'i — matn ortida, aksent rangda. */
+  .cats__bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, rgb(228 87 46 / 0.32), rgb(228 87 46 / 0.14));
+    border-right: 1px solid rgb(228 87 46 / 0.5);
+    pointer-events: none;
+  }
+
+  .cats__btn-title,
+  .cats__btn-desc {
+    position: relative;
+    display: block;
+  }
+  .cats__btn-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-fg-100);
+    text-wrap: balance;
+  }
+  .cats__btn-desc {
+    margin-top: 6px;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--color-fg-500);
+  }
+
+  /* ---- qolgan toifalar ---- */
+  .cats__more {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0;
+    margin-top: clamp(36px, 5vh, 60px);
+    border-top: 1px solid var(--line);
+  }
+  .cats__more li {
+    padding: 22px 24px 22px 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .cats__more b {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-fg-100);
+  }
+  .cats__more span {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--color-fg-500);
+  }
+
+  @media (max-width: 900px) {
+    .cats__stage { aspect-ratio: 4 / 5; border-radius: 18px; }
+    .cats__ask { justify-self: stretch; justify-content: center; }
+    .cats__slide figcaption { padding-bottom: 28px; }
+    .cats__btns { grid-template-columns: repeat(2, 1fr); }
+    .cats__btn:first-child { grid-column: 1 / -1; }
+    .cats__btn-desc { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cats__slide img { transition: none; transform: scale(1.04); }
+  }
+</style>
