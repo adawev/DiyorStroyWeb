@@ -26,7 +26,9 @@ const brandMods = import.meta.glob<ImageMetadata>('../../images/brands-mono/*.pn
 });
 const brandLogos = brands.map((b) => ({ ...b, img: brandMods[`../../images/brands-mono/${b.file.replace(/\.\w+$/, '.png')}`] }));
 const galleryPanels = photos.slice(0, 4);
-const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coords.lng - 0.01}%2C${site.coords.lat - 0.005}%2C${site.coords.lng + 0.01}%2C${site.coords.lat + 0.005}&layer=mapnik`;
+// Yandex Xarita — O'zbekiston manzillari va nomlari uchun aniqroq.
+const ll = `${site.coords.lng}%2C${site.coords.lat}`;
+const mapSrc = `https://yandex.uz/map-widget/v1/?ll=${ll}&z=17&pt=${site.coords.lng},${site.coords.lat},pm2rdm&lang=uz_UZ`;
 ---
 
 <Base
@@ -196,12 +198,11 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
 
     <!-- ============ MANZIL ============ -->
     <section class="map" id="manzil" data-map>
-      <iframe src={mapSrc} title="Diyor Stroy xaritada" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src={mapSrc} title="Diyor Stroy Yandex xaritada" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
       <button class="map__shield" type="button" data-map-unlock>
         <span>Xaritani ochish uchun bosing</span>
       </button>
-      <span class="map__pin" aria-hidden="true"></span>
-      <div class="map__card" data-stagger>
+        <div class="map__card" data-stagger>
         <h2 data-rise>Qayerdamiz</h2>
         <ul data-reveal>
           <li><Icon name="pin" size={18} /><span>{site.address}</span></li>
@@ -718,17 +719,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     border: 0;
     filter: invert(0.93) hue-rotate(180deg) saturate(0.28) contrast(0.9) brightness(0.9);
   }
-  .map__pin {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
-    border-radius: 999px;
-    background: var(--color-accent);
-    box-shadow: 0 0 0 8px rgb(228 87 46 / 0.22);
-  }
   .map__card {
     position: absolute;
     left: clamp(16px, 5vw, 72px);
@@ -847,7 +837,6 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     .map__card { position: static; transform: none; width: 100%; border-radius: 0; }
     .map { height: auto; }
     .map iframe { height: 380px; }
-    .map__pin { display: none; }
   }
 
   @media (max-width: 720px) {
