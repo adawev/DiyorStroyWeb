@@ -48,7 +48,7 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   </div>
 
   <!-- ============ HERO ============ -->
-  <header class="hero panel">
+  <header class="hero panel" data-hero>
     <div class="hero__bg" data-parallax>
       <Image
         src={heroArt}
@@ -83,157 +83,159 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     <a class="hero__cue" href="#manifest"><span>Pastga</span><Icon name="arrow-down" size={18} /></a>
   </header>
 
-  <!-- ============ MANIFEST ============ -->
-  <section class="manifest panel" id="manifest">
-    <div class="manifest__lede">
-      <p class="manifest__text" data-reveal>
-        <span>Arzon va sifatli odatda bir joyda uchramaydi.</span>
-        <b>Bizda uchraydi.</b>
-      </p>
-      <p class="manifest__sub" data-reveal style="--reveal-delay:120ms">
-        Sababi oddiy: mahsulot ishlab chiqaruvchi va yirik distribyutorlardan
-        to'g'ridan-to'g'ri olinadi — oraliq ustama yo'q.
-      </p>
-    </div>
-    <ol class="manifest__grid" data-stagger>
-      {
-        advantages.map((a, i) => (
-          <li data-reveal style={`--reveal-delay:${i * 90}ms`}>
-            <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{a.title}</h3>
-            <p>{a.text}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <!-- ============ TOIFALAR ============ -->
-  <CategoryCarousel photos={photos} />
-
-  <!-- ============ STATISTIKA ============ -->
-  <section class="stats panel" aria-label="Raqamlar">
-    <ul data-stagger>
-      {
-        stats.map((s) => (
-          <li data-reveal>
-            <span class="stats__v tnum">{s.value}</span>
-            <span class="stats__l">{s.label}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <!-- ============ GALEREYA ============ -->
-  <section class="shots" id="dokon">
-    {
-      galleryPanels.map((p, i) => (
-        <figure class="shot">
-          <div class="shot__img" data-parallax>
-            <Image src={p} alt="Diyor Stroy do'koni" widths={[720, 1400]} sizes="100vw" loading="lazy" />
-          </div>
-          <figcaption data-reveal>
-            <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
-            {['Rastalar va ombor', 'Santexnika bo\'limi', 'Quruq qorishmalar', 'Asbob-uskuna'][i]}
-          </figcaption>
-        </figure>
-      ))
-    }
-  </section>
-
-  <!-- ============ BRENDLAR ============ -->
-  <section class="brands" id="brendlar">
-    <div class="brands__head">
-      <h2 data-rise>Rasmiy brendlar</h2>
-      <p data-reveal style="--reveal-delay:120ms">Faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulot.</p>
-    </div>
-    {
-      [0, 1].map((row) => (
-        <div class="marquee" data-dir={row}>
-          <div class="marquee__track">
-            {[0, 1].map(() =>
-              (row === 0 ? brandLogos.slice(0, 8) : brandLogos.slice(8)).map((b) => (
-                <span><Image src={b.img} alt={b.name} widths={[120, 240]} sizes="120px" loading="lazy" /></span>
-              )),
-            )}
-          </div>
-        </div>
-      ))
-    }
-  </section>
-
-  <!-- ============ ULGURJI ============ -->
-  <section class="split" id="ulgurji">
-    <div class="split__left" data-stagger>
-      <p class="tagline tagline--dark" data-reveal>Ulgurji va brigadalar</p>
-      <h2 data-rise>Ertalab<br />07:00 dan ochiq</h2>
-      <p class="split__lead" data-reveal>
-        Brigada ish boshlashidan oldin material olib ulgursin. Katta hajmdagi
-        buyurtmalarga alohida chegirma narx.
-      </p>
-      <ul class="split__services" data-reveal>
-        {services.map((s) => <li><b>{s.title}</b> — {s.text}</li>)}
-      </ul>
-    </div>
-
-    <div class="split__contact" data-stagger>
-      <h3 data-reveal>Chegirma narx so'rash</h3>
-      <p class="split__contact-lead" data-reveal>
-        Kerakli materialni ayting — narxini va bor-yo'qligini shu yerda aytamiz.
-      </p>
-      <a class="split__phone tnum" data-reveal href={site.phoneHref} data-magnetic="0.15">
-        {site.phone}
-        <Icon name="arrow" size={26} />
-      </a>
-      <a class="btn btn--tg" data-reveal href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
-        <Icon name="telegram" size={18} /> Telegramda yozish
-      </a>
-      <p class="split__contact-note tnum" data-reveal>{site.hours} · {site.hoursNote}</p>
-    </div>
-  </section>
-
-  <!-- ============ MANZIL ============ -->
-  <section class="map" id="manzil" data-map>
-    <iframe src={mapSrc} title="Diyor Stroy xaritada" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <button class="map__shield" type="button" data-map-unlock>
-      <span>Xaritani ochish uchun bosing</span>
-    </button>
-    <span class="map__pin" aria-hidden="true"></span>
-    <div class="map__card" data-stagger>
-      <h2 data-rise>Qayerdamiz</h2>
-      <ul data-reveal>
-        <li><Icon name="pin" size={18} /><span>{site.address}</span></li>
-        <li><Icon name="clock" size={18} /><span class="tnum">{site.hours} · {site.hoursNote}</span></li>
-        <li><Icon name="phone" size={18} /><a href={site.phoneHref} class="tnum">{site.phone}</a></li>
-        <li><Icon name="tag" size={18} /><span>{site.payments.join(' · ')}</span></li>
-      </ul>
-      <div class="map__links" data-reveal>
-        <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Google</a>
-        <a class="btn btn--ghost" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Yandex</a>
+  <div class="flow">
+    <!-- ============ MANIFEST ============ -->
+    <section class="manifest panel" id="manifest">
+      <div class="manifest__lede">
+        <p class="manifest__text" data-reveal>
+          <span>Arzon va sifatli odatda bir joyda uchramaydi.</span>
+          <b>Bizda uchraydi.</b>
+        </p>
+        <p class="manifest__sub" data-reveal style="--reveal-delay:120ms">
+          Sababi oddiy: mahsulot ishlab chiqaruvchi va yirik distribyutorlardan
+          to'g'ridan-to'g'ri olinadi — oraliq ustama yo'q.
+        </p>
       </div>
-    </div>
-  </section>
+      <ol class="manifest__grid" data-stagger>
+        {
+          advantages.map((a, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 90}ms`}>
+              <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{a.title}</h3>
+              <p>{a.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
 
-  <!-- ============ SAVOLLAR ============ -->
-  <section class="faq" id="savollar">
-    <h2 data-rise>Savollar</h2>
-    <ul data-stagger>
+    <!-- ============ TOIFALAR ============ -->
+    <CategoryCarousel photos={photos} />
+
+    <!-- ============ STATISTIKA ============ -->
+    <section class="stats panel" aria-label="Raqamlar">
+      <ul data-stagger>
+        {
+          stats.map((s) => (
+            <li data-reveal>
+              <span class="stats__v tnum">{s.value}</span>
+              <span class="stats__l">{s.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- ============ GALEREYA ============ -->
+    <section class="shots" id="dokon">
       {
-        faq.map((f) => (
-          <li data-reveal>
-            <details>
-              <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
-              <p>{f.a}</p>
-            </details>
-          </li>
+        galleryPanels.map((p, i) => (
+          <figure class="shot">
+            <div class="shot__img" data-parallax>
+              <Image src={p} alt="Diyor Stroy do'koni" widths={[720, 1400]} sizes="100vw" loading="lazy" />
+            </div>
+            <figcaption data-reveal>
+              <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
+              {['Rastalar va ombor', 'Santexnika bo\'limi', 'Quruq qorishmalar', 'Asbob-uskuna'][i]}
+            </figcaption>
+          </figure>
         ))
       }
-    </ul>
-  </section>
+    </section>
 
-  <!-- ============ FOOTER ============ -->
-  <CinematicFooter />
+    <!-- ============ BRENDLAR ============ -->
+    <section class="brands" id="brendlar">
+      <div class="brands__head">
+        <h2 data-rise>Rasmiy brendlar</h2>
+        <p data-reveal style="--reveal-delay:120ms">Faqat sertifikatlangan, sifat nazoratidan o'tgan mahsulot.</p>
+      </div>
+      {
+        [0, 1].map((row) => (
+          <div class="marquee" data-dir={row}>
+            <div class="marquee__track">
+              {[0, 1].map(() =>
+                (row === 0 ? brandLogos.slice(0, 8) : brandLogos.slice(8)).map((b) => (
+                  <span><Image src={b.img} alt={b.name} widths={[120, 240]} sizes="120px" loading="lazy" /></span>
+                )),
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- ============ ULGURJI ============ -->
+    <section class="split" id="ulgurji">
+      <div class="split__left" data-stagger>
+        <p class="tagline tagline--dark" data-reveal>Ulgurji va brigadalar</p>
+        <h2 data-rise>Ertalab<br />07:00 dan ochiq</h2>
+        <p class="split__lead" data-reveal>
+          Brigada ish boshlashidan oldin material olib ulgursin. Katta hajmdagi
+          buyurtmalarga alohida chegirma narx.
+        </p>
+        <ul class="split__services" data-reveal>
+          {services.map((s) => <li><b>{s.title}</b> — {s.text}</li>)}
+        </ul>
+      </div>
+
+      <div class="split__contact" data-stagger>
+        <h3 data-reveal>Chegirma narx so'rash</h3>
+        <p class="split__contact-lead" data-reveal>
+          Kerakli materialni ayting — narxini va bor-yo'qligini shu yerda aytamiz.
+        </p>
+        <a class="split__phone tnum" data-reveal href={site.phoneHref} data-magnetic="0.15">
+          {site.phone}
+          <Icon name="arrow" size={26} />
+        </a>
+        <a class="btn btn--tg" data-reveal href={site.telegramChat} target="_blank" rel="noopener" data-magnetic>
+          <Icon name="telegram" size={18} /> Telegramda yozish
+        </a>
+        <p class="split__contact-note tnum" data-reveal>{site.hours} · {site.hoursNote}</p>
+      </div>
+    </section>
+
+    <!-- ============ MANZIL ============ -->
+    <section class="map" id="manzil" data-map>
+      <iframe src={mapSrc} title="Diyor Stroy xaritada" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <button class="map__shield" type="button" data-map-unlock>
+        <span>Xaritani ochish uchun bosing</span>
+      </button>
+      <span class="map__pin" aria-hidden="true"></span>
+      <div class="map__card" data-stagger>
+        <h2 data-rise>Qayerdamiz</h2>
+        <ul data-reveal>
+          <li><Icon name="pin" size={18} /><span>{site.address}</span></li>
+          <li><Icon name="clock" size={18} /><span class="tnum">{site.hours} · {site.hoursNote}</span></li>
+          <li><Icon name="phone" size={18} /><a href={site.phoneHref} class="tnum">{site.phone}</a></li>
+          <li><Icon name="tag" size={18} /><span>{site.payments.join(' · ')}</span></li>
+        </ul>
+        <div class="map__links" data-reveal>
+          <a class="btn btn--ghost" href={site.googleMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Google</a>
+          <a class="btn btn--ghost" href={site.yandexMaps} target="_blank" rel="noopener" data-magnetic="0.2"><Icon name="route" size={16} /> Yandex</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SAVOLLAR ============ -->
+    <section class="faq" id="savollar">
+      <h2 data-rise>Savollar</h2>
+      <ul data-stagger>
+        {
+          faq.map((f) => (
+            <li data-reveal>
+              <details>
+                <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
+                <p>{f.a}</p>
+              </details>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <CinematicFooter />
+  </div>
 
   <div class="mobilebar">
     <a href={site.phoneHref}><Icon name="phone" size={19} /> Qo'ng'iroq</a>
@@ -358,7 +360,24 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
   }
 
   /* ================= HERO ================= */
-  .hero { overflow: clip; padding: 120px clamp(20px, 5vw, 88px) 96px; }
+  /* Hero yopishib turadi, keyingi bo'limlar uning ustidan surilib chiqadi
+     — footerdagi "parda" effektining teskarisi. */
+  .hero {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    height: 100svh;
+    overflow: clip;
+    padding: 120px clamp(20px, 5vw, 88px) 96px;
+    transform-origin: 50% 30%;
+    will-change: transform, opacity;
+  }
+
+  .flow {
+    position: relative;
+    z-index: 1;
+    background: var(--color-bg-900);
+  }
   .hero__bg { position: absolute; inset: -4% 0; z-index: 0; }
   .hero__bg img {
     width: 100%;
@@ -804,8 +823,15 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.coor
     .topbar__call span { display: none; }
     .topbar__call { width: 46px; height: 46px; justify-content: center; padding: 0; }
     .hero { padding-bottom: 140px; }
-    /* Mobilda rasm pastki lentaga tushadi — matn ustiga tushmaydi. */
-    .hero { padding-top: 112px; padding-bottom: 44svh; }
+    /* Mobilda rasm pastki lentaga tushadi — matn ustiga tushmaydi.
+       Yopishqoq hero faqat kattaroq ekranlarda. */
+    .hero {
+      position: relative;
+      height: auto;
+      min-height: 100svh;
+      padding-top: 112px;
+      padding-bottom: 44svh;
+    }
     .hero__bg { inset: auto 0 76px 0; height: 46svh; }
     .hero__bg img {
       object-position: 56% 62%;

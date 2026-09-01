@@ -152,6 +152,36 @@ const jsonLd = {
           );
         });
 
+        // Hero: keyingi bo'lim ustidan surilganda orqaga chekinadi.
+        const hero = document.querySelector<HTMLElement>('[data-hero]');
+        const flow = document.querySelector<HTMLElement>('.flow');
+        if (hero && flow && window.innerWidth > 900) {
+          const exit = {
+            scrollTrigger: { trigger: flow, start: 'top bottom', end: 'top top', scrub: 0.4 },
+            ease: 'none',
+          };
+
+          gsap.fromTo(
+            hero,
+            { scale: 1, opacity: 1, borderRadius: '0px' },
+            { scale: 0.94, opacity: 0.3, borderRadius: '28px', ...exit },
+          );
+          gsap.fromTo(
+            hero.querySelector('.hero__body'),
+            { y: 0 },
+            { y: -90, ...exit },
+          );
+          gsap.fromTo(
+            hero.querySelector('.hero__cue'),
+            { opacity: 1 },
+            {
+              opacity: 0,
+              ease: 'none',
+              scrollTrigger: { trigger: flow, start: 'top bottom', end: 'top 70%', scrub: 0.4 },
+            },
+          );
+        }
+
         // Yuqoridagi skroll chizig'i.
         const bar = document.querySelector<HTMLElement>('[data-scroll-progress]');
         if (bar) {
