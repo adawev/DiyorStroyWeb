@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import VariantSwitcher from '../components/VariantSwitcher.astro';
+import { site } from '../data/site.js';
+
+interface Props {
+  title: string;
+  description: string;
+  variant: string;
+  bodyClass?: string;
+}
+const { title, description, variant, bodyClass = '' } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HardwareStore',
+  name: site.name,
+  url: site.domain,
+  telephone: site.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.addressShort,
+    addressLocality: site.city,
+    addressCountry: 'UZ',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.coords.lat, longitude: site.coords.lng },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '07:00',
+    closes: '20:00',
+  },
+  sameAs: [site.telegram, site.instagram],
+};
+---
+
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0A0A0B" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class={`variant-${variant} ${bodyClass}`}>
+    <slot />
+    <VariantSwitcher current={variant} />
+
+    <script>
+      const items = document.querySelectorAll('[data-reveal]');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && items.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
+        );
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+---
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<span class={`open-status ${cls}`} data-open-status>
+  <span class="dot" aria-hidden="true"></span>
+  <span data-open-text>07:00 — 20:00</span>
+</span>
+
+<style>
+  .open-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-fg-300);
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--color-fg-500);
+    box-shadow: 0 0 0 0 rgb(74 222 128 / 0.5);
+  }
+  .open-status[data-state='open'] .dot {
+    background: #4ade80;
+    animation: pulse 2.6s var(--ease-out-expo) infinite;
+  }
+  .open-status[data-state='closed'] .dot {
+    background: var(--color-accent);
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgb(74 222 128 / 0.45); }
+    70% { box-shadow: 0 0 0 7px rgb(74 222 128 / 0); }
+    100% { box-shadow: 0 0 0 0 rgb(74 222 128 / 0); }
+  }
+</style>
+
+<script>
+  // Samarqand vaqti (UTC+5) bo'yicha do'kon ochiqmi — real holat, yozib qo'yilgan matn emas.
+  const nodes = document.querySelectorAll('[data-open-status]');
+  const now = new Date();
+  const uz = new Date(now.getTime() + (now.getTimezoneOffset() + 300) * 60000);
+  const minutes = uz.getHours() * 60 + uz.getMinutes();
+  const isOpen = minutes >= 420 && minutes < 1200;
+  nodes.forEach((n) => {
+    n.setAttribute('data-state', isOpen ? 'open' : 'closed');
+    const t = n.querySelector('[data-open-text]');
+    if (t) t.textContent = isOpen ? 'Hozir ochiq · 20:00 gacha' : 'Hozir yopiq · 07:00 da ochamiz';
+  });
+</script>

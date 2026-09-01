@@ -1,0 +1,184 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { variants, site } from '../data/site.js';
+
+const detail: Record<string, string[]> = {
+  v1: [
+    'Foto-hero, 100vh, slayder 01/07',
+    'Sarlavha orqada — obyekt oldinda (referens 1 va 4)',
+    'Raqamli toifa kartalari, accent statistika polosasi',
+    'Klassik editorial ritm: quyuq → quyuq → accent',
+  ],
+  v2: [
+    "Chapda doimiy kontakt paneli — telefon har doim ko'rinadi",
+    'Hero fotosiz: faqat tipografika va raqamlar jadvali',
+    "Toifalar — indeks jadval, qatorga kursor kelganda foto",
+    'Katalog/dosye mantiqi, hairline chiziqlar',
+  ],
+  v3: [
+    "To'liq ekranli panellar, parallaks, sanaladigan raqamlar",
+    'Toifalar — gorizontal surma rels',
+    "Galereya — ketma-ket to'liq kenglikdagi kadrlar",
+    'Kinematik ritm, yumaloq tugmalar, katta harakat',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Diyor Stroy — dizayn variantlari</title>
+    <meta name="description" content="Uchta dizayn varianti: Editorial, Katalog, Kinematik." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="pick">
+      <header>
+        <p class="kick">Diyor Stroy · dizayn variantlari</p>
+        <h1>Uchta yo'nalish.<br />Bittasini tanlang.</h1>
+        <p class="lead">
+          Uchalasi ham bir xil kontent, bir xil palitra va bir xil faktlar
+          ustida qurilgan. Farqi — kompozitsiya, ritm va tipografikada.
+          Har qanday sahifadan pastdagi almashtirgich orqali ikkinchisiga
+          o'tish mumkin.
+        </p>
+      </header>
+
+      <ul class="grid">
+        {
+          variants.map((v, i) => (
+            <li>
+              <a href={v.href}>
+                <span class="n">{String(i + 1).padStart(2, '0')}</span>
+                <h2>{v.name}</h2>
+                <p class="note">{v.note}</p>
+                <ul class="points">
+                  {detail[v.id].map((d) => <li>{d}</li>)}
+                </ul>
+                <span class="go">Ochish →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <footer>
+        <span>{site.address}</span>
+        <a href={site.phoneHref} class="tnum">{site.phone}</a>
+      </footer>
+    </main>
+
+    <style>
+      .pick {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: clamp(48px, 9vh, 112px) var(--page-x) 80px;
+      }
+      .kick {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-fg-500);
+      }
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(34px, 5.4vw, 62px);
+        font-weight: 600;
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+        color: var(--color-fg-100);
+      }
+      .lead {
+        margin-top: 20px;
+        max-width: 62ch;
+        color: var(--color-fg-300);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: clamp(40px, 6vw, 72px);
+      }
+      .grid a {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 26px;
+        border: 1px solid var(--line-2);
+        border-radius: 16px;
+        background: var(--color-bg-800);
+        transition:
+          border-color 0.25s var(--ease-out-expo),
+          transform 0.25s var(--ease-out-expo);
+      }
+      .grid a:hover {
+        border-color: var(--color-accent);
+        transform: translateY(-3px);
+      }
+      .n {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        color: var(--color-accent);
+      }
+      .grid h2 {
+        margin-top: 16px;
+        font-size: 26px;
+        font-weight: 600;
+        color: var(--color-fg-100);
+      }
+      .note {
+        margin-top: 6px;
+        font-size: 14px;
+        color: var(--color-fg-500);
+      }
+      .points {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line-2);
+        font-size: 14px;
+        color: var(--color-fg-300);
+      }
+      .points li {
+        padding-left: 16px;
+        position: relative;
+      }
+      .points li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 6px;
+        height: 1px;
+        background: var(--color-accent);
+      }
+      .go {
+        margin-top: auto;
+        padding-top: 24px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-fg-100);
+      }
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 56px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line-2);
+        font-size: 13px;
+        color: var(--color-fg-500);
+      }
+      @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </body>
+</html>
