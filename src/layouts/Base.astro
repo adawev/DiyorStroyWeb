@@ -1,0 +1,243 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site.js';
+
+interface Props {
+  title: string;
+  description: string;
+  bodyClass?: string;
+}
+const { title, description, bodyClass = '' } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HardwareStore',
+  name: site.name,
+  url: site.domain,
+  logo: `${site.domain}/favicon-512.png`,
+  image: `${site.domain}/og.jpg`,
+  telephone: site.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.addressShort,
+    addressLocality: site.city,
+    addressCountry: 'UZ',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.coords.lat, longitude: site.coords.lng },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '07:00',
+    closes: '20:00',
+  },
+  sameAs: [site.telegram, site.instagram],
+};
+---
+
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0A0B" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta property="og:url" content={site.domain} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={`${site.domain}/og.jpg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Diyor Stroy — qurilish mollari assortimenti" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${site.domain}/og.jpg`} />
+    <link rel="canonical" href={site.domain} />
+    <!-- Ikonkalar: Google qidiruvda kamida 48x48 PNG kerak. -->
+    <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class={bodyClass}>
+    <span class="scrollbar-progress" data-scroll-progress aria-hidden="true"></span>
+
+    <slot />
+
+    <script>
+      // ================================================================
+      // Skroll harakati — butun sayt uchun yagona tizim (GSAP ScrollTrigger).
+      //   [data-reveal]   — pastdan chiqib ko'rinadi
+      //   [data-rise]     — sarlavha maskadan ochiladi
+      //   [data-stagger]  — ichidagi [data-reveal] lar navbat bilan
+      //   [data-parallax] — skroll bilan sekin suriladi
+      // ================================================================
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduce) {
+        document.querySelectorAll<HTMLElement>('[data-reveal], [data-rise]').forEach((el) => {
+          el.style.opacity = '1';
+          el.style.clipPath = 'none';
+        });
+      } else {
+        const delayOf = (el: HTMLElement) =>
+          (parseFloat(getComputedStyle(el).getPropertyValue('--reveal-delay')) || 0) / 1000;
+
+        // Guruh ichidagilar navbat bilan chiqadi.
+        document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
+          const kids = Array.from(group.querySelectorAll<HTMLElement>('[data-reveal]'));
+          if (!kids.length) return;
+          kids.forEach((k) => k.setAttribute('data-in-group', ''));
+
+          gsap.fromTo(
+            kids,
+            { y: 34, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: 'expo.out',
+              stagger: 0.09,
+              scrollTrigger: { trigger: group, start: 'top 85%', once: true },
+            },
+          );
+        });
+
+        // Yolg'iz elementlar.
+        document
+          .querySelectorAll<HTMLElement>('[data-reveal]:not([data-in-group])')
+          .forEach((el) => {
+            gsap.fromTo(
+              el,
+              { y: 34, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.9,
+                delay: delayOf(el),
+                ease: 'expo.out',
+                scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+              },
+            );
+          });
+
+        // Sarlavhalar: maska pastdan ochiladi.
+        document.querySelectorAll<HTMLElement>('[data-rise]').forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: '18%', opacity: 0, clipPath: 'inset(0 0 100% 0)' },
+            {
+              y: '0%',
+              opacity: 1,
+              clipPath: 'inset(0 0 -12% 0)',
+              duration: 1.1,
+              ease: 'expo.out',
+              scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+            },
+          );
+        });
+
+        // Parallaks qatlamlar — skroll bilan bog'langan (scrub).
+        document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
+          const strength = Number(el.dataset.parallax) || 8;
+          gsap.fromTo(
+            el,
+            { yPercent: -strength / 2 },
+            {
+              yPercent: strength / 2,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el.parentElement || el,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.6,
+              },
+            },
+          );
+        });
+
+        // Hero: keyingi bo'lim ustidan surilganda orqaga chekinadi.
+        const hero = document.querySelector<HTMLElement>('[data-hero]');
+        const flow = document.querySelector<HTMLElement>('.flow');
+        if (hero && flow && window.innerWidth > 900) {
+          const exit = {
+            scrollTrigger: { trigger: flow, start: 'top bottom', end: 'top top', scrub: 0.4 },
+            ease: 'none',
+          };
+
+          gsap.fromTo(
+            hero,
+            { scale: 1, opacity: 1, borderRadius: '0px' },
+            { scale: 0.94, opacity: 0.3, borderRadius: '28px', ...exit },
+          );
+          gsap.fromTo(
+            hero.querySelector('.hero__body'),
+            { y: 0 },
+            { y: -90, ...exit },
+          );
+          gsap.fromTo(
+            hero.querySelector('.hero__cue'),
+            { opacity: 1 },
+            {
+              opacity: 0,
+              ease: 'none',
+              scrollTrigger: { trigger: flow, start: 'top bottom', end: 'top 70%', scrub: 0.4 },
+            },
+          );
+        }
+
+        // Yuqoridagi skroll chizig'i.
+        const bar = document.querySelector<HTMLElement>('[data-scroll-progress]');
+        if (bar) {
+          gsap.to(bar, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: { start: 0, end: 'max', scrub: 0.25 },
+          });
+        }
+      }
+    </script>
+
+    <script>
+      // Magnit tugmalar — [data-magnetic] bo'lgan har qanday element uchun.
+      // Butun saytda bitta xatti-harakat: footer, hero, karusel, xarita.
+      import { gsap } from 'gsap';
+
+      const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (fine && !reduce) {
+        document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+          const pull = Number(el.dataset.magnetic) || 0.3;
+
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            gsap.to(el, {
+              x: (e.clientX - r.left - r.width / 2) * pull,
+              y: (e.clientY - r.top - r.height / 2) * (pull + 0.05),
+              scale: 1.04,
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          });
+
+          el.addEventListener('pointerleave', () => {
+            gsap.to(el, { x: 0, y: 0, scale: 1, duration: 1.1, ease: 'elastic.out(1, 0.35)' });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

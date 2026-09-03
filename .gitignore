@@ -6,3 +6,7 @@ node_modules/
 
 # Windows metadata
 *.Zone.Identifier
+# Astro
+dist/
+.astro/
+.yarn/install-state.gz
