@@ -30,17 +30,75 @@ export const stats = [
 ];
 
 // `featured: true` — Toifalar karuselida katta ko'rsatiladiganlari.
+// `photo` — images/ papkasidagi fayl. Faqat rasmi bor toifa featured bo'ladi,
+// shunda karuseldagi surat toifa nomiga aniq mos keladi.
 export const categories = [
-  { title: 'Sement va quruq qorishmalar', items: 'Gips, shpaklyovka, qorishmalar', featured: true },
-  { title: 'Gipsokarton va profil', items: 'Knauf listlar, metall profillar', featured: true },
-  { title: "Bo'yoq va lak", items: "Gruntovka, emal, fasad bo'yoqlari", featured: true },
-  { title: 'Santexnika', items: 'Quvurlar, kranlar, fitinglar', featured: true },
-  { title: 'Elektr mollari', items: 'Kabel, rozetka, avtomatlar (Viko)', featured: true },
-  { title: 'Asbob-uskuna', items: 'Tolsen qo’l va elektr asboblari' },
-  { title: 'Kafel va keramogranit', items: "Yopishtiruvchi aralashmalar, zatirka" },
+  {
+    title: "Bo'yoq va lak",
+    items: "Gruntovka, emal, fasad bo'yoqlari",
+    photo: 'photo7.jpg',
+    alt: "Hayat va boshqa brendlarning bo'yoq bankalari javonlarda — Diyor Stroy bo'yoq bo'limi",
+    featured: true,
+  },
+  {
+    title: 'Santexnika',
+    items: 'Kran, smesitel, dush garniturasi',
+    photo: 'photo9.jpg',
+    alt: "Devorga terilgan xromlangan kran va smesitellar — santexnika bo'limi",
+    featured: true,
+  },
+  {
+    title: 'Quvur va fitinglar',
+    items: 'PPR va PVX quvurlar, mufta, burchak',
+    photo: 'photo3.jpg',
+    alt: "Oq va kulrang plastik quvurlar rastada — quvur va fitinglar bo'limi",
+    featured: true,
+  },
+  {
+    title: 'Asbob-uskuna',
+    items: "Tolsen va Wokin qo'l asboblari",
+    photo: 'photo8.jpg',
+    alt: "Wokin qo'l asboblari devorga osilgan — asbob-uskuna bo'limi",
+    featured: true,
+  },
+  {
+    title: 'Gips dekor va plintus',
+    items: 'Shift karnizi, plintus, gips qoplama',
+    photo: 'photo4.jpg',
+    alt: 'Oq gips karniz va plintuslar javonda terilgan',
+    featured: true,
+  },
+  { title: 'Sement va quruq qorishmalar', items: 'Gips, shpaklyovka, qorishmalar' },
+  { title: 'Gipsokarton va profil', items: 'Knauf listlar, metall profillar' },
+  { title: 'Elektr mollari', items: 'Kabel, rozetka, avtomatlar (Viko)' },
+  { title: 'Kafel va keramogranit', items: 'Yopishtiruvchi aralashmalar, zatirka' },
   { title: 'Izolyatsiya', items: 'Issiqlik va gidroizolyatsiya materiallari' },
   { title: 'Germetik va yelim', items: 'Akfix, Somafix' },
   { title: 'Eshik-deraza furniturasi', items: 'Akfa profillar va furnitura' },
+];
+
+// Galereya — do'kon atmosferasi. Tartib: tashqaridan ichkariga.
+export const gallery = [
+  {
+    photo: 'street.jpg',
+    caption: "Do'kon tashqarisi",
+    alt: "Xalil Sulton 150 dagi Diyor Stroy do'koni tashqarisi, izolyatsiya rulonlari va qoplar",
+  },
+  {
+    photo: 'photo5.jpg',
+    caption: 'Savdo zali',
+    alt: "Diyor Stroy savdo zali — bo'yoq, yoritish va maishiy mollar rastalari",
+  },
+  {
+    photo: 'photo6.jpg',
+    caption: "Santexnika bo'limi",
+    alt: "Rakovina, gidroakkumulyator va shlanglar terilgan santexnika bo'limi",
+  },
+  {
+    photo: 'photo2.jpg',
+    caption: 'Xo\'jalik mollari',
+    alt: 'Plastik chelaklar, belkurak, mix va boshqa xo\'jalik mollari',
+  },
 ];
 
 export const advantages = [

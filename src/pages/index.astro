@@ -7,25 +7,28 @@ import Icon from '../components/Icon.astro';
 import OpenStatus from '../components/OpenStatus.astro';
 import CategoryCarousel from '../components/CategoryCarousel.astro';
 import CinematicFooter from '../components/CinematicFooter.astro';
-import { site, stats, advantages, services, brands, faq } from '../data/site.js';
+import { site, stats, advantages, services, brands, faq, categories, gallery } from '../data/site.js';
 
 import logoWhite from '../../images/logoWhite.png';
 import heroArt from '../../images/hero/hero-ai.png';
 
-const photoMods = import.meta.glob<ImageMetadata>('../../images/photo*.jpg', {
+// Do'kon suratlari. Har rasm site.js dagi toifa/galereya yozuviga nom bilan
+// biriktiriladi — indeks bo'yicha tasodifiy moslash yo'q.
+const photoMods = import.meta.glob<ImageMetadata>('../../images/*.jpg', {
   eager: true,
   import: 'default',
 });
-const photos = Object.keys(photoMods)
-  .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
-  .map((k) => photoMods[k]);
+const photo = (file: string) => photoMods[`../../images/${file}`];
 
 const brandMods = import.meta.glob<ImageMetadata>('../../images/brands-mono/*.png', {
   eager: true,
   import: 'default',
 });
 const brandLogos = brands.map((b) => ({ ...b, img: brandMods[`../../images/brands-mono/${b.file.replace(/\.\w+$/, '.png')}`] }));
-const galleryPanels = photos.slice(0, 4);
+const catSlides = categories
+  .filter((c) => c.featured)
+  .map((c) => ({ ...c, img: photo(c.photo) }));
+const galleryPanels = gallery.map((g) => ({ ...g, img: photo(g.photo) }));
 // Yandex Xarita — O'zbekiston manzillari va nomlari uchun aniqroq.
 const ll = `${site.coords.lng}%2C${site.coords.lat}`;
 const mapSrc = `https://yandex.uz/map-widget/v1/?ll=${ll}&z=17&pt=${site.coords.lng},${site.coords.lat},pm2rdm&lang=uz_UZ`;
@@ -112,7 +115,7 @@ const mapSrc = `https://yandex.uz/map-widget/v1/?ll=${ll}&z=17&pt=${site.coords.
     </section>
 
     <!-- ============ TOIFALAR ============ -->
-    <CategoryCarousel photos={photos} />
+    <CategoryCarousel slides={catSlides} />
 
     <!-- ============ STATISTIKA ============ -->
     <section class="stats panel" aria-label="Raqamlar">
@@ -134,11 +137,11 @@ const mapSrc = `https://yandex.uz/map-widget/v1/?ll=${ll}&z=17&pt=${site.coords.
         galleryPanels.map((p, i) => (
           <figure class="shot">
             <div class="shot__img" data-parallax>
-              <Image src={p} alt="Diyor Stroy do'koni" widths={[720, 1400]} sizes="100vw" loading="lazy" />
+              <Image src={p.img} alt={p.alt} widths={[720, 1400]} sizes="100vw" loading="lazy" />
             </div>
             <figcaption data-reveal>
               <span class="tnum">{String(i + 1).padStart(2, '0')}</span>
-              {['Rastalar va ombor', 'Santexnika bo\'limi', 'Quruq qorishmalar', 'Asbob-uskuna'][i]}
+              {p.caption}
             </figcaption>
           </figure>
         ))

@@ -4,17 +4,20 @@
 // Tugma bosilsa joriy progress `fastDuration` ichida tez to'lib, keyingisiga o'tadi.
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
-import { site, categories } from '../data/site.js';
+import { site } from '../data/site.js';
 
+interface Slide {
+  title: string;
+  items: string;
+  alt: string;
+  img: ImageMetadata;
+}
 interface Props {
-  photos: ImageMetadata[];
+  slides: Slide[];
   duration?: number;
   fastDuration?: number;
 }
-const { photos, duration = 3200, fastDuration = 320 } = Astro.props;
-
-const featured = categories.filter((c) => c.featured);
-const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] }));
+const { slides, duration = 3200, fastDuration = 320 } = Astro.props;
 ---
 
 <section class="cats" id="toifalar">
@@ -30,7 +33,7 @@ const slides = featured.map((c, i) => ({ ...c, img: photos[i % photos.length] })
       {
         slides.map((c, i) => (
           <figure class="cats__slide" data-slide={i} data-active={i === 0 ? '' : undefined}>
-            <Image src={c.img} alt={c.title} widths={[720, 1200, 1800]} sizes="(max-width: 900px) 100vw, 68vw" loading="lazy" />
+            <Image src={c.img} alt={c.alt} widths={[720, 1200, 1800]} sizes="(max-width: 900px) 100vw, 68vw" loading="lazy" />
             <figcaption>
               <span class="cats__n tnum">{String(i + 1).padStart(2, '0')}</span>
               <h3>{c.title}</h3>
